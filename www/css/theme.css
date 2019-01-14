@@ -1,0 +1,602 @@
+/*
+	COLOR THEME
+*/
+.ios .color-theme-lifeisdance a,
+.md .color-theme-lifeisdance a {
+  color: #8d4097;
+}
+.ios .badge,
+.md .badge {
+  background-color:#8d4097;
+  color:#fff;
+}
+.md .color-theme-lifeisdance .statusbar {
+  background: #fff;
+}
+.md .color-theme-lifeisdance .navbar,
+.md .color-theme-lifeisdance.navbar {
+  background: #fff;
+}
+.ios .color-theme-lifeisdance .tabbar a.tab-link-active,
+.ios .color-theme-lifeisdance .tabbar-labels a.tab-link-active,
+.ios .color-theme-lifeisdance.tabbar-labels a.tab-link-active,
+.ios .color-theme-lifeisdance.tabbar a.tab-link-active {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .toolbar:not(.messagebar),
+.md .color-theme-lifeisdance.toolbar:not(.messagebar) {
+  background: #f4f4f4;
+}
+.md .color-theme-lifeisdance .subnavbar,
+.md .color-theme-lifeisdance.subnavbar {
+  background: #f4f4f4;
+}
+.ios .color-theme-lifeisdance .list-button {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .list-button {
+  color: #8d4097;
+}
+.ios .color-theme-lifeisdance .button {
+  border-color: #8d4097;
+  color: #8d4097;
+}
+.ios .color-theme-lifeisdance .button.active-state {
+  background: rgba(141, 64, 151, 0.15);
+}
+.ios .color-theme-lifeisdance .button.button-active,
+.ios .color-theme-lifeisdance .button.tab-link-active,
+.ios .color-theme-lifeisdance .button.button-fill,
+.ios .color-theme-lifeisdance .button.button-fill-ios {
+  color: #fff;
+}
+.ios .color-theme-lifeisdance .button.button-active,
+.ios .color-theme-lifeisdance .button.tab-link-active {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance .button.button-fill,
+.ios .color-theme-lifeisdance .button.button-fill-ios {
+  background: #8d4097;
+  border-color: transparent;
+}
+.ios .color-theme-lifeisdance .button.button-small.button-fill.active-state,
+.ios .color-theme-lifeisdance .button.button-small-ios.button-fill.active-state,
+.ios .color-theme-lifeisdance .button.button-small.button-fill-ios.active-state,
+.ios .color-theme-lifeisdance .button.button-small-ios.button-fill-ios.active-state {
+  color: #8d4097;
+  border: 2px solid #8d4097;
+  background-color: transparent;
+}
+.md .color-theme-lifeisdance .button,
+.md .color-blue .button {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .button.button-fill,
+.md .color-blue .button.button-fill,
+.md .color-theme-lifeisdance .button.button-fill-md,
+.md .color-blue .button.button-fill-md,
+.md .color-theme-lifeisdance .button.button-active,
+.md .color-blue .button.button-active,
+.md .color-theme-lifeisdance .button.tab-link-active,
+.md .color-blue .button.tab-link-active {
+  background-color: #8d4097;
+  color: #fff;
+}
+.md .color-theme-lifeisdance .button.button-fill.active-state,
+.md .color-blue .button.button-fill.active-state,
+.md .color-theme-lifeisdance .button.button-fill-md.active-state,
+.md .color-blue .button.button-fill-md.active-state,
+.md .color-theme-lifeisdance .button.button-active.active-state,
+.md .color-blue .button.button-active.active-state,
+.md .color-theme-lifeisdance .button.tab-link-active.active-state,
+.md .color-blue .button.tab-link-active.active-state {
+  background: #0c82df;
+}
+.md .color-theme-lifeisdance .button.button-outline,
+.md .color-blue .button.button-outline {
+  border-color: #8d4097;
+}
+.ios .color-theme-lifeisdance .icon-back,
+.ios .icon-back.color-blue,
+.ios a.link.color-blue .icon-back,
+.ios .color-theme-lifeisdance .icon-prev,
+.ios .icon-prev.color-blue,
+.ios a.link.color-blue .icon-prev {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D'12'%20height%3D'20'%20viewBox%3D'0%200%2012%2020'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M.18261596%209.4221638c.0352203-.05148305.07573462-.10050698.1215468-.14631917L9.1425872.4374202c.5830904-.58309038%201.52656832-.5849888%202.11643872.00488163.5857864.58578644.591222%201.53009836.0048816%202.11643873L3.82594417%209.9967039l7.43188553%207.4318855c.5830904.5830904.5849888%201.5265683-.0048817%202.1164387-.5857864.5857865-1.5300983.591222-2.11643868.0048816L.2980849%2010.7114853c-.3526746-.3526746-.3939974-.89699-.11546894-1.2893215z'%20fill%3D'%238d4097'%20fill-rule%3D'evenodd'%2F%3E%3C%2Fsvg%3E");
+}
+.ios .color-theme-lifeisdance .icon-forward,
+.ios .icon-forward.color-blue,
+.ios a.link.color-blue .icon-forward,
+.ios .color-theme-lifeisdance .icon-next,
+.ios .icon-next.color-blue,
+.ios a.link.color-blue .icon-next {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D'12'%20height%3D'20'%20viewBox%3D'0%200%2012%2020'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M11.51840604%2010.5648622c-.0352203.05148305-.07573462.10050698-.1215468.14631917L2.5584348%2019.5496058c-.5830904.58309038-1.52656832.5849888-2.11643872-.00488163-.5857864-.58578644-.591222-1.53009836-.0048816-2.11643873L7.87507783%209.9903221.4431923%202.5584366C-.1398981%201.9753462-.1417965%201.0318683.448074.4419979c.5857864-.5857865%201.5300983-.591222%202.11643868-.0048816l8.83842442%208.8384244c.3526746.3526746.3939974.89699.11546894%201.2893215z'%20fill%3D'%238d4097'%20fill-rule%3D'evenodd'%2F%3E%3C%2Fsvg%3E");
+}
+.md .color-theme-lifeisdance .login-screen-content .list-button {
+  color: #8d4097;
+}
+.ios .color-theme-lifeisdance .progressbar span {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance .progressbar-infinite:before {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .progressbar,
+.md .color-theme-lifeisdance .progressbar-infinite {
+  background: rgba(141, 64, 151, 0.5);
+}
+.md .color-theme-lifeisdance .progressbar span {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .progressbar-infinite:before,
+.md .color-theme-lifeisdance .progressbar-infinite:after {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance .list-index ul,
+.ios .list-index.color-theme-lifeisdance ul {
+  color: #8d4097;
+}
+.ios .color-theme-lifeisdance .list-index .list-index-skip-placeholder:after,
+.ios .list-index.color-theme-lifeisdance .list-index-skip-placeholder:after,
+.ios .color-theme-lifeisdance .list-index .list-index-label,
+.ios .list-index.color-theme-lifeisdance .list-index-label {
+  background-color: #8d4097;
+}
+.md .color-theme-lifeisdance .list-index ul,
+.md .list-index.color-theme-lifeisdance ul {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .list-index .list-index-skip-placeholder:after,
+.md .list-index.color-theme-lifeisdance .list-index-skip-placeholder:after,
+.md .color-theme-lifeisdance .list-index .list-index-label,
+.md .list-index.color-theme-lifeisdance .list-index-label {
+  background-color: #8d4097;
+}
+.md .color-theme-lifeisdance .timeline-item-date,
+.md .color-theme-lifeisdance .timeline-year-title,
+.md .color-theme-lifeisdance .timeline-month-title {
+  background: #8d4097;
+}
+.md .timeline.color-theme-lifeisdance .timeline-item-date,
+.md .timeline.color-theme-lifeisdance .timeline-year-title,
+.md .timeline.color-theme-lifeisdance .timeline-month-title {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .card-header a.link,
+.md .color-theme-lifeisdance .card-footer a.link,
+.md .card-header.color-theme-lifeisdance a.link,
+.md .card-footer.color-theme-lifeisdance a.link {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .item-input-focused .item-label,
+.md .color-theme-lifeisdance .item-input-focused .item-floating-label {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .item-input-focused .item-input-wrap:after,
+.md .color-theme-lifeisdance .input-after:after {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance label.item-checkbox input[type="checkbox"]:checked ~ .icon-checkbox,
+.ios .color-theme-lifeisdance .checkbox input[type="checkbox"]:checked ~ i {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance label.item-checkbox input[type="checkbox"]:checked ~ .icon-checkbox,
+.md .color-theme-lifeisdance label.item-checkbox input[type="checkbox"]:checked ~ * .icon-checkbox,
+.md .color-theme-lifeisdance .checkbox input[type="checkbox"]:checked ~ i {
+  background-color: #8d4097;
+  border-color: #8d4097;
+}
+.md .color-theme-lifeisdance .checkbox .ripple-wave {
+  background: rgba(141, 64, 151, 0.5);
+}
+.ios .color-theme-lifeisdance label.item-radio input[type="radio"]:checked ~ .icon-radio,
+.ios .color-theme-lifeisdance label.item-radio input[type="radio"]:checked ~ * .icon-radio,
+.ios .color-theme-lifeisdance .radio input[type="radio"]:checked ~ .icon-radio {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2013%2010'%3E%3Cpolygon%20fill%3D'%238d4097'%20points%3D'11.6%2C0%204.4%2C7.2%201.4%2C4.2%200%2C5.6%204.4%2C10%204.4%2C10%204.4%2C10%2013%2C1.4%20'%2F%3E%3C%2Fsvg%3E");
+}
+.ios .color-theme-lifeisdance .radio input[type="radio"]:checked ~ .icon-radio {
+  border-color: #8d4097;
+}
+.md .color-theme-lifeisdance .icon-radio:after {
+  background-color: #8d4097;
+}
+.md .color-theme-lifeisdance label.item-radio input[type="radio"]:checked ~ .icon-radio,
+.md .color-theme-lifeisdance label.item-radio input[type="radio"]:checked ~ * .icon-radio,
+.md .color-theme-lifeisdance .radio input[type="radio"]:checked ~ .icon-radio {
+  border-color: #8d4097;
+}
+.md .color-theme-lifeisdance label.item-radio input[type="radio"]:checked ~ .icon-radio:after,
+.md .color-theme-lifeisdance label.item-radio input[type="radio"]:checked ~ * .icon-radio:after,
+.md .color-theme-lifeisdance .radio input[type="radio"]:checked ~ .icon-radio:after {
+  background-color: #8d4097;
+}
+.md .color-theme-lifeisdance .radio .ripple-wave {
+  background: rgba(141, 64, 151, 0.5);
+}
+.md .color-theme-lifeisdance .toggle input[type="checkbox"]:checked + .toggle-icon {
+  background: rgba(141, 64, 151, 0.5);
+}
+.md .color-theme-lifeisdance .toggle input[type="checkbox"]:checked + .toggle-icon:after {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance .range-slider .range-bar-active {
+  background-color: #8d4097;
+}
+.md .color-theme-lifeisdance .range-slider .range-bar-active,
+.md .color-theme-lifeisdance .range-slider .range-knob,
+.md .color-theme-lifeisdance .range-slider .range-knob-label,
+.md .color-theme-lifeisdance .range-slider .range-knob-label:before {
+  background-color: #8d4097;
+}
+.ios .color-theme-lifeisdance .stepper .stepper-button,
+.ios .color-theme-lifeisdance .stepper .stepper-button-minus,
+.ios .color-theme-lifeisdance .stepper .stepper-button-plus {
+  border-color: #8d4097;
+  color: #8d4097;
+}
+.ios .color-theme-lifeisdance .stepper .stepper-button.active-state,
+.ios .color-theme-lifeisdance .stepper .stepper-button-minus.active-state,
+.ios .color-theme-lifeisdance .stepper .stepper-button-plus.active-state {
+  background-color: rgba(141, 64, 151, 0.15);
+}
+.ios .color-theme-lifeisdance .stepper .stepper-button-plus:after,
+.ios .color-theme-lifeisdance .stepper .stepper-button-minus:after,
+.ios .color-theme-lifeisdance .stepper .stepper-button-plus:before,
+.ios .color-theme-lifeisdance .stepper .stepper-button-minus:before {
+  background-color: #8d4097;
+}
+.ios .color-theme-lifeisdance .stepper .stepper-value,
+.ios .color-theme-lifeisdance .stepper .stepper-input-wrap {
+  border-top-color: #8d4097;
+  border-bottom-color: #8d4097;
+}
+.ios .color-theme-lifeisdance .stepper .stepper-value {
+  color: #8d4097;
+}
+.ios .color-theme-lifeisdance .stepper .stepper-input-wrap input {
+  color: #8d4097;
+}
+.ios .color-theme-lifeisdance .stepper.stepper-fill .stepper-button,
+.ios .color-theme-lifeisdance .stepper.stepper-fill-ios .stepper-button,
+.ios .color-theme-lifeisdance .stepper.stepper-fill .stepper-button-minus,
+.ios .color-theme-lifeisdance .stepper.stepper-fill-ios .stepper-button-minus,
+.ios .color-theme-lifeisdance .stepper.stepper-fill .stepper-button-plus,
+.ios .color-theme-lifeisdance .stepper.stepper-fill-ios .stepper-button-plus {
+  background-color: #8d4097;
+}
+.ios .color-theme-lifeisdance .stepper.stepper-fill .stepper-button-plus:before,
+.ios .color-theme-lifeisdance .stepper.stepper-fill-ios .stepper-button-plus:before,
+.ios .color-theme-lifeisdance .stepper.stepper-fill .stepper-button-minus:before,
+.ios .color-theme-lifeisdance .stepper.stepper-fill-ios .stepper-button-minus:before,
+.ios .color-theme-lifeisdance .stepper.stepper-fill .stepper-button-plus:after,
+.ios .color-theme-lifeisdance .stepper.stepper-fill-ios .stepper-button-plus:after,
+.ios .color-theme-lifeisdance .stepper.stepper-fill .stepper-button-minus:after,
+.ios .color-theme-lifeisdance .stepper.stepper-fill-ios .stepper-button-minus:after {
+  background-color: #fff;
+}
+.ios .color-theme-lifeisdance .stepper.stepper-small.stepper-fill .stepper-button.active-state,
+.ios .color-theme-lifeisdance .stepper.stepper-small-ios.stepper-fill .stepper-button.active-state,
+.ios .color-theme-lifeisdance .stepper.stepper-small.stepper-fill .stepper-button-minus.active-state,
+.ios .color-theme-lifeisdance .stepper.stepper-small-ios.stepper-fill .stepper-button-minus.active-state,
+.ios .color-theme-lifeisdance .stepper.stepper-small.stepper-fill .stepper-button-plus.active-state,
+.ios .color-theme-lifeisdance .stepper.stepper-small-ios.stepper-fill .stepper-button-plus.active-state {
+  color: #8d4097;
+  border-color: #8d4097;
+  background-color: transparent;
+}
+.ios .color-theme-lifeisdance .stepper.stepper-small.stepper-fill .stepper-button-plus.active-state:before,
+.ios .color-theme-lifeisdance .stepper.stepper-small-ios.stepper-fill .stepper-button-plus.active-state:before,
+.ios .color-theme-lifeisdance .stepper.stepper-small.stepper-fill .stepper-button-minus.active-state:before,
+.ios .color-theme-lifeisdance .stepper.stepper-small-ios.stepper-fill .stepper-button-minus.active-state:before,
+.ios .color-theme-lifeisdance .stepper.stepper-small.stepper-fill .stepper-button-plus.active-state:after,
+.ios .color-theme-lifeisdance .stepper.stepper-small-ios.stepper-fill .stepper-button-plus.active-state:after,
+.ios .color-theme-lifeisdance .stepper.stepper-small.stepper-fill .stepper-button-minus.active-state:after,
+.ios .color-theme-lifeisdance .stepper.stepper-small-ios.stepper-fill .stepper-button-minus.active-state:after {
+  background-color: #8d4097;
+}
+.md .color-theme-lifeisdance .stepper-button,
+.md .color-theme-lifeisdance .stepper-button-minus,
+.md .color-theme-lifeisdance .stepper-button-plus {
+  border-color: #8d4097;
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .stepper-button-plus:after,
+.md .color-theme-lifeisdance .stepper-button-minus:after,
+.md .color-theme-lifeisdance .stepper-button-plus:before,
+.md .color-theme-lifeisdance .stepper-button-minus:before {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .stepper-value,
+.md .color-theme-lifeisdance .stepper-input-wrap {
+  border-top-color: #8d4097;
+  border-bottom-color: #8d4097;
+}
+.md .color-theme-lifeisdance .stepper-value {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .stepper .stepper-input-wrap input {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .stepper-fill .stepper-button,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button-minus,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button-minus,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button-plus,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button-plus {
+  background-color: #8d4097;
+  color: #fff;
+}
+.md .color-theme-lifeisdance .stepper-fill .stepper-button.active-state,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button.active-state,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button-minus.active-state,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button-minus.active-state,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button-plus.active-state,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button-plus.active-state {
+  background: #0c82df;
+}
+.md .color-theme-lifeisdance .stepper-fill .stepper-button:after,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button:after,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button-minus:after,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button-minus:after,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button-plus:after,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button-plus:after,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button:before,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button:before,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button-minus:before,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button-minus:before,
+.md .color-theme-lifeisdance .stepper-fill .stepper-button-plus:before,
+.md .color-theme-lifeisdance .stepper-fill-md .stepper-button-plus:before {
+  background: #fff;
+}
+.ios .color-theme-lifeisdance .calendar-day.calendar-day-selected .calendar-day-number,
+.ios .color-blue .calendar-day.calendar-day-selected .calendar-day-number {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance .calendar-day .calendar-day-event,
+.ios .color-blue .calendar-day .calendar-day-event {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .calendar-header,
+.md .color-blue .calendar-header {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .calendar-day.calendar-day-today .calendar-day-number,
+.md .color-blue .calendar-day.calendar-day-today .calendar-day-number {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .calendar-day.calendar-day-selected .calendar-day-number,
+.md .color-blue .calendar-day.calendar-day-selected .calendar-day-number {
+  background: #8d4097;
+  color: #fff;
+}
+.md .color-theme-lifeisdance .calendar-day.calendar-day-selected .calendar-day-number:after,
+.md .color-blue .calendar-day.calendar-day-selected .calendar-day-number:after {
+  background-color: #fff;
+}
+.md .color-theme-lifeisdance .calendar-day .calendar-day-event,
+.md .color-blue .calendar-day .calendar-day-event {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance .data-table-header-selected,
+.ios .data-table-header-selected.color-blue {
+  background: rgba(141, 64, 151, 0.1);
+}
+.ios .color-theme-lifeisdance .data-table-title-selected,
+.ios .color-blue .data-table-title-selected {
+  color: #8d4097;
+}
+.md .color-theme-lifeisdance .data-table-header-selected,
+.md .data-table-header-selected.color-blue {
+  background: rgba(141, 64, 151, 0.1);
+}
+.md .color-theme-lifeisdance .data-table-title-selected,
+.md .color-blue .data-table-title-selected {
+  color: #8d4097;
+}
+.ios .color-theme-lifeisdance .fab > a,
+.ios .color-theme-lifeisdance .fab-buttons a,
+.ios .color-theme-lifeisdance.fab > a,
+.ios .color-theme-lifeisdance.fab-buttons a {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance .fab > a.active-state,
+.ios .color-theme-lifeisdance .fab-buttons a.active-state,
+.ios .color-theme-lifeisdance.fab > a.active-state,
+.ios .color-theme-lifeisdance.fab-buttons a.active-state {
+  background: #0066d6;
+}
+.ios .color-theme-lifeisdance .fab-morph,
+.ios .color-theme-lifeisdance.fab-morph {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .fab > a,
+.md .color-theme-lifeisdance .fab-buttons a,
+.md .color-theme-lifeisdance.fab > a,
+.md .color-theme-lifeisdance.fab-buttons a {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .fab > a.active-state,
+.md .color-theme-lifeisdance .fab-buttons a.active-state,
+.md .color-theme-lifeisdance.fab > a.active-state,
+.md .color-theme-lifeisdance.fab-buttons a.active-state {
+  background: #0c82df;
+}
+.md .color-theme-lifeisdance .fab-morph,
+.md .color-theme-lifeisdance.fab-morph {
+  background: #8d4097;
+}
+.ios .color-theme-lifeisdance .searchbar-disable-button {
+  color: #8d4097;
+}
+.ios .swiper-button-prev.color-blue,
+.ios .swiper-container-rtl .swiper-button-next.color-blue,
+.ios .color-theme-lifeisdance .swiper-button-prev,
+.ios .color-theme-lifeisdance .swiper-container-rtl .swiper-button-next {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%238d4097'%2F%3E%3C%2Fsvg%3E");
+}
+.ios .swiper-button-next.color-blue,
+.ios .swiper-container-rtl .swiper-button-prev.color-blue,
+.ios .color-theme-lifeisdance .swiper-button-next,
+.ios .color-theme-lifeisdance .swiper-container-rtl .swiper-button-prev {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%238d4097'%2F%3E%3C%2Fsvg%3E");
+}
+.ios .color-blue .swiper-pagination-bullet,
+.ios .color-theme-lifeisdance .swiper-pagination-bullet {
+  background:#fff;
+  opacity:0.7;
+}
+.ios .color-blue .swiper-pagination-bullet-active,
+.ios .color-theme-lifeisdance .swiper-pagination-bullet-active {
+  background:#fff;
+  opacity:1;
+}
+.ios .color-blue .swiper-pagination-progressbar,
+.ios .color-theme-lifeisdance .swiper-pagination-progressbar,
+.ios .color-blue.swiper-pagination-progressbar,
+.ios .color-theme-lifeisdance.swiper-pagination-progressbar {
+  background: rgba(141, 64, 151, 0.25);
+}
+.ios .color-blue .swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
+.ios .color-theme-lifeisdance .swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
+.ios .color-blue.swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
+.ios .color-theme-lifeisdance.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: #8d4097;
+}
+.md .swiper-button-prev.color-blue,
+.md .swiper-container-rtl .swiper-button-next.color-blue,
+.md .color-theme-lifeisdance .swiper-button-prev,
+.md .color-theme-lifeisdance .swiper-container-rtl .swiper-button-next {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23bd6fc7'%2F%3E%3C%2Fsvg%3E");
+}
+.md .swiper-button-next.color-blue,
+.md .swiper-container-rtl .swiper-button-prev.color-blue,
+.md .color-theme-lifeisdance .swiper-button-next,
+.md .color-theme-lifeisdance .swiper-container-rtl .swiper-button-prev {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23bd6fc7'%2F%3E%3C%2Fsvg%3E");
+}
+.md .color-blue .swiper-pagination-bullet,
+.md .color-theme-lifeisdance .swiper-pagination-bullet {
+  background:#fff;
+  opacity:0.7;
+}
+.md .color-blue .swiper-pagination-bullet-active,
+.md .color-theme-lifeisdance .swiper-pagination-bullet-active {
+  background:#fff;
+  opacity:1;
+}
+.md .color-blue .swiper-pagination-progressbar,
+.md .color-theme-lifeisdance .swiper-pagination-progressbar,
+.md .color-blue.swiper-pagination-progressbar,
+.md .color-theme-lifeisdance.swiper-pagination-progressbar {
+  background: rgba(141, 64, 151, 0.25);
+}
+.md .color-blue .swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
+.md .color-theme-lifeisdance .swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
+.md .color-blue.swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
+.md .color-theme-lifeisdance.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: #8d4097;
+}
+.md .color-theme-lifeisdance .photo-browser-page:not(.photo-browser-page-dark) .navbar,
+.md .color-blue .photo-browser-page:not(.photo-browser-page-dark) .navbar,
+.md .color-theme-lifeisdance .photo-browser-page:not(.photo-browser-page-dark) .toolbar,
+.md .color-blue .photo-browser-page:not(.photo-browser-page-dark) .toolbar {
+  background-color: rgba(141, 64, 151, 0.95);
+}
+/*
+	TEMPLATE
+*/
+/* PAGE IMAGES */
+.page img {max-width:100%;}
+/* MENU */
+#view-menu i {color:#8d4097;}
+/* STUFF */
+.img-circle > img,
+.img-circle {border-radius:50%;}
+.img-lifeisdance {border-radius:0 33% 0 33%;}
+.img-avatar-big {background-size:cover; background-position:center; width:33vw; height:33vw;}
+.img-small-avatar {width:40px; height:40px; overflow:hidden;}
+.clay-to-top {margin-top:0 !important;}
+/* TOOLBARS & NAVBARS */
+.ios .statusbar,
+.md .statusbar {background-color:#fff;}
+.md .navbar,
+.ios .navbar {background-color:#fff; color:#000;}
+.md .toolbar,
+.ios .toolbar {background-color:#f4f4f4; color:#000;}
+.ios .page {background-color:#fff;}
+.ios .tabbar-labels a.link svg path,
+.ios .tabbar-labels a.tab-link svg path {fill:#000000;}
+.md .tabbar-labels a.tab-link.tab-link-active svg path,
+.ios .tabbar-labels a.tab-link.tab-link-active svg path {fill:#8d4097;}
+.ios #bottom-toolbar .toolbar-inner {padding-left:0; padding-right:0;}
+#bottom-toolbar.tabbar-labels a.tab-link {padding-top:16px; padding-bottom:16px;}
+.navbar .avatar {width:34px !important; height:34px !important; overflow:hidden; border-radius:0 33% 0 33%;}
+.md .navbar .avatar {padding-right:0px !important; padding-left:0px !important; margin-right:10px;}
+.navbar .avatar img {max-width:100%;}
+.md .navbar:after,
+.md .toolbar:after {height:1px;}
+.md .tabbar .tab-link-highlight,
+.md .tabbar-labels .tab-link-highlight {display:none;}
+
+.md .media-list .item-title,
+.ios .media-list .item-title {font-weight:400;}
+.item-link, .item-media {position:relative;}
+.item-link, .item-media .badge {position:absolute; top:0; left:0;}
+/* MESSAGES */
+.ios .color-theme-lifeisdance .message-sent .message-bubble {background:#c883d2;}
+.md .color-theme-lifeisdance .message-sent .message-bubble {background:#e1cae8;}
+.message:not(.message-last) .message-avatar {opacity:1;}
+/* SLIDER */
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {bottom:0;}
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {margin:0 3px;}
+.swiper-pagination-bullet {width:6px; height:6px;}
+/* TAPE */
+.md #view-home .card,
+.ios #view-home .card {-webkit-box-shadow:none; box-shadow:none; margin:0; margin-left:0; margin-right:0;}
+#view-home .card,
+#view-home .card .card-header {border-radius:0;}
+.lid-tape-card .card-header {display:block; padding:10px;}
+.lid-tape-card .lid-tape-avatar {float:left;}
+.lid-tape-card .lid-tape-avatar img {border-radius:0 33% 0 33%;}
+.lid-tape-card .lid-tape-name {margin-left:44px; font-size:14px; font-weight:500;}
+.lid-tape-card .lid-tape-author {margin-left:44px; font-size:13px; color:#8e8e93;}
+.lid-tape-card .lid-tape-time {float:right; font-size:14px; line-height:16px; color:#aaa; margin-top:1px;}
+.lid-tape-card .swiper-container,
+.lid-tape-card .card-buttons {background:#fafafa; -webkit-justify-content:flex-start; justify-content:flex-start;}
+.ios .lid-tape-card .card-buttons a,
+.md .lid-tape-card .card-buttons a,
+.ios .lid-tape-card .card-buttons a.link,
+.md .lid-tape-card .card-buttons a.link {color:#000; font-weight:400; margin-right:15px;}
+.lid-tape-card .card-buttons a i {margin-right:5px;}
+.lid-tape-card .card-content img {display:block;}
+.lid-tape-card .card-content-padding {padding:15px 10px 25px 10px; border-bottom:2px solid #f4f4f4;}
+.lid-tape-card .card-content-padding .likes {color:#8e8e93;}
+.lid-tape-card .swiper-container .swiper-slide {height:60vw; background-size:cover; background-position:center; color:#fff; text-align:center;}
+/* SMALL TAPE */
+.lifeisdance-user-digits > div {text-align:center; margin-left:20px; margin-right:20px;}
+.lifeisdance-user-digit {display:block; font-weight:500; font-size:20px;}
+.tape-small {display:flex; justify-content:space-between; flex-direction:row; flex-wrap:wrap;}
+.tape-small .tape-small-card{width:32.8vw; height:32.8vw; margin-bottom:0.8vw; overflow:hidden; display:block; background-position:center center; background-size:cover;}
+/* COMMENTS */
+.media-list .item-media-end,
+li.media-item .item-media-end {
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-top:10px;
+  padding-bottom:9px;
+  padding-right:15px;
+}
+.comments .item-content .item-text {-webkit-line-clamp:unset; max-height:none;}
+/*
+	ICONS
+*/
+i.lid-icon-like {width:20px; height:20px; background-image:url(../images/svg/like.svg); display:inline-block; vertical-align:middle;}
+.liked > i.lid-icon-like {background-image:url(../images/svg/like-on.svg);}
+i.lid-icon-comment {width:20px; height:20px; background-image:url(../images/svg/comment.svg); display:inline-block; vertical-align:middle;}
+i.lid-icon-repost {width:20px; height:20px; background-image:url(../images/svg/repost.svg); display:inline-block; vertical-align:middle;}
+i.lid-icon-favour {width:20px; height:20px; background-image:url(../images/svg/favorite.svg); display:inline-block; vertical-align:middle;}
+
+.md .icon-back {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'24'%20height%3D'24'%20viewBox%3D'0%200%2024%2024'%3E%3Cpath%20d%3D'M20%2011H7.83l5.59-5.59L12%204l-8%208%208%208%201.41-1.41L7.83%2013H20v-2z'%20fill%3D'%238d4097'%2F%3E%3C%2Fsvg%3E");
+}

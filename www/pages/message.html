@@ -1,0 +1,85 @@
+<template>
+  <div class="page">
+<!--<div class="popup popup-about">-->
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">{{$root.lang.m.back}}</span>
+          </a>
+        </div>
+		<div class="title">John Ivanov</div>
+    </div>
+  </div>
+  <div class="toolbar messagebar">
+    <div class="toolbar-inner">
+      <a class="link toggle-sheet" href="#">
+        <i class="icon material-icons">camera_alt</i>
+      </a>
+      <div class="messagebar-area">
+        <textarea class="messagetext" placeholder="Message"></textarea>
+      </div>
+      <a class="link" @click="sendMessage"><i class="icon material-icons">send</i></i></a>
+    </div>
+    <div class="messagebar-sheet"></div>
+  </div>
+  <div class="page-content messages-content infinite-scroll-content infinite-scroll-top" data-infinite-distance="200">
+	<!-- infinite scroll loader -->
+	<div class="preloader infinite-scroll-preloader"></div>
+	<!-- all messages -->
+    <div class="messages"></div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    data() {
+      return {
+        // empty initial user data
+        messages: null,
+        lastupdate: null,
+        lng:lang.mess,
+        attachimgs:[
+			'https://lifeis.dance/app/i/c1.jpg',
+			'https://lifeis.dance/app/i/c2.jpg',
+			'https://lifeis.dance/app/i/c3.jpg',
+			'https://lifeis.dance/app/i/c4.jpg',
+			'https://lifeis.dance/app/i/c5.jpg',
+			'https://lifeis.dance/app/i/c6.jpg',
+			'https://lifeis.dance/app/i/c7.jpg',
+			'https://lifeis.dance/app/i/c8.jpg',
+  		]
+      }
+    },
+    methods: {
+        sendMessage: function (e) {
+          var self = this;
+          var mbc = self.$el.find('.messagetext');
+          var mc = self.$el.children('.page-content').children('.messages');
+          SendMessage(mbc,mc,app_prms.url.sendmessage);
+        },
+    },
+    on: {
+      pageInit: function(e, page) {
+        var self = this;
+        var app = self.$app;
+        var mobj = self.$el.children('.page-content').children('.messages');
+        //console.log(mobj);
+        app.messages.create({el:mobj});
+        LoadMessagesToPage(app_prms.url.messages,mobj);
+        self.$el.children('.infinite-scroll-content').on('infinite', function (e) {
+			LoadMessagesToPage(app_prms.url.messages,$$(this).children('.messages'));
+	    });
+      },
+      pageBeforeIn : function(e, page) {
+		// прячем нижние кнопки
+		app.toolbar.hide('#bottom-toolbar');
+      },
+      pageAfterOut: function(e, page) {
+		// восстанавливаем нижние кнопки
+        app.toolbar.show('#bottom-toolbar');
+      },
+    },
+  };
+</script>

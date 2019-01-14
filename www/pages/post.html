@@ -1,0 +1,137 @@
+<template>
+	<div class="page">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="left">
+	          <a href="#" class="link back">
+	            <i class="icon icon-back"></i>
+	            <span class="ios-only">{{$root.lang.m.back}}</span>
+	          </a>
+			</div>
+			<div class="title sliding">{{lng.post}}</div>
+              <div class="right">
+                <a href="#view-settings" class="link icon-only panel-open avatar">
+                  <img src="images/user/profile.jpg"/>
+                </a>
+              </div>
+		</div>
+	</div>
+	<div class="toolbar messagebar">
+		<div class="toolbar-inner">
+			<div class="messagebar-area">
+				<textarea class="resizable postcomment" placeholder="Message"></textarea>
+			</div>
+			<a class="link" @click="sendComment"><i class="icon material-icons">send</i></i></a>
+		</div>
+	</div>
+	<div class="page-content infinite-scroll-content" data-infinite-distance="200">
+
+		{{#if post}}
+		<div class="card lid-tape-card">
+			<div class="card-header">
+				<div class="lid-tape-time">{{post.time}}</div>
+				<div class="lid-tape-avatar"><img src="{{post.author.photo}}" width="34" height="34"/></div>
+				<div class="lid-tape-name">{{post.author.name}}</div>
+				<div class="lid-tape-author"><a href="/users/{{post.author.id}}/">#{{post.author.alias}}</a></div>
+			</div>
+			{{#if post.imgs}}
+			<div class="swiper-container swiper-init" data-pagination='{"el": ".swiper-pagination"}'>
+				<div class="swiper-pagination"></div>
+				<div class="swiper-wrapper">
+				{{#each post.imgs}}
+					<div style="background-image:url({{this}}){{#if ../../vw}};height:{{../../vw}}vw{{/if}}" class="swiper-slide"></div>
+				{{/each}}
+				</div>
+			</div>
+			{{/if}}
+			<div class="card-footer card-buttons">
+				<a href="#" class="link"><i class="lid-icon-like"></i> {{post.ext.likes}}</a>
+				<a href="#" class="link"><i class="lid-icon-comment"></i> {{post.ext.comments}}</a>
+				<a href="#" class="link"><i class="lid-icon-repost"></i> {{post.ext.reposts}}</a>
+			</div>
+			<div class="card-content card-content-padding">
+				<p>{{post.text}}{{#each post.tags}} <a href="/tags/{{this}}/">#{{this}}</a>{{/each}}</p>
+			</div>
+		</div>
+		{{else}}
+		<div class="preloader"></div>
+		{{/if}}
+
+		<div class="block-title">{{lng.comments}}</div>
+		<div class="list media-list comments"></div>
+
+		<!-- infinite scroll loader -->
+		<div class="preloader infinite-scroll-preloader"></div>
+
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    data() {
+      return {
+        // empty initial user data
+        post: null,
+        comments: null,
+        lastid: null,
+        lng:lang.post
+      }
+    },
+    methods: {
+        sendComment: function (e) {
+          var self = this;
+          var text = self.$el.find('.postcomment').val();
+          self.$app.dialog.alert('Send comment! '+text);
+        },
+    },
+    on: {
+      pageInit() {
+        var self = this;
+        var app = self.$app;
+        // тянем данные о конкретном пользователе
+        app.request.post(app_prms.url.post, {post_id:self.$route.params.postId}, (reqdata) => {
+          //console.log('get post');
+          //console.log(reqdata);
+          self.$setState({
+            post: reqdata,
+          });
+        },'json');
+
+        // тянем данные о комментариях
+        /*app.request.post(app_prms.url.comments, {post_id:self.$route.params.postId}, (reqdata) => {
+          console.log('get comments');
+          console.log(reqdata);
+          self.$setState({
+            comments: reqdata.comments,
+            lastid: reqdata.lastid
+          });
+        },'json');*/
+
+        // первые несколько блоков
+        LoadItemsToInfiniteTape(app_prms.url.comments,self.$el.children('.page-content').children('.comments'),app_prms.tmpl.postcomments);
+        // инициализация бесконечного скролла
+        self.$el.children('.infinite-scroll-content').on('infinite', function (e) {
+			LoadItemsToInfiniteTape(app_prms.url.comments,$$(this).children('.comments'),app_prms.tmpl.postcomments);
+	    });
+        //console.log(self.data);
+        // request user data on page init
+        /*app.request.postJSON('https://lifeis.dance/app/user.php', {lastupdate:0}, (reqdata) => {
+          // update component state with new state
+          console.log(reqdata);
+          self.$setState({
+            messages: reqdata.messages,
+            lastupdate: reqdata.lastupdate
+          });
+        });*/
+      },
+      pageBeforeIn : function(e, page) {
+		// прячем нижние кнопки
+		app.toolbar.hide('#bottom-toolbar');
+      },
+      pageAfterOut: function(e, page) {
+		// восстанавливаем нижние кнопки
+        app.toolbar.show('#bottom-toolbar');
+      },
+    },
+  };
+</script>

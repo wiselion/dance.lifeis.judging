@@ -1,0 +1,75 @@
+<template>
+	<div class="page">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="left">
+				<a href="#view-settings" class="link icon-only panel-open">
+					<i class="material-icons">add</i>
+				</a>
+			</div>
+			<div class="title sliding">{{lng.messages}}</div>
+              <div class="right">
+                <a href="#view-settings" class="link icon-only panel-open avatar">
+                  <img src="images/user/profile.jpg"/>
+                </a>
+              </div>
+		</div>
+	</div>
+	<div class="page-content">
+      {{#if messages}}
+      <!-- Show user list when it is loaded -->
+      <div class="list media-list chevron-center clay-to-top">
+        <ul>
+	        {{#each messages}}
+			<li>
+				<a href="/message/{{this.chat_id}}/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="{{this.img}}" width="60">
+						{{#if this.unread}}<span class="badge">{{this.unread}}</span>{{/if}}
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">{{this.title}}</div>
+							<div class="item-after">{{this.time}}</div>
+						</div>
+						<div class="item-text">{{this.text}}</div>
+					</div>
+				</a>
+			</li>
+			{{/each}}
+        </ul>
+      </div>
+      {{else}}
+		<div class="preloader"></div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    data() {
+      return {
+        // empty initial user data
+        messages: null,
+        lastupdate: null,
+        lng:lang.mess
+      }
+    },
+    on: {
+      pageInit() {
+        var self = this;
+        var app = self.$app;
+        //console.log(self.data);
+        // request user data on page init
+        app.request.postJSON('https://lifeis.dance/app/messages_all.php', {lastupdate:0}, (reqdata) => {
+          // update component state with new state
+          //console.log(reqdata);
+          self.$setState({
+            messages: reqdata.messages,
+            lastupdate: reqdata.lastupdate
+          });
+        });
+      },
+    },
+  };
+</script>

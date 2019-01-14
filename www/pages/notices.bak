@@ -1,0 +1,198 @@
+<div class="page" data-name="notices">
+  <!-- Top Navbar -->
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="left">l</div>
+      <div class="title sliding">Notices</div>
+      <div class="right">r</div>
+    </div>
+  </div>
+  <div class="page-content">
+
+	<div class="list media-list chevron-center clay-to-top">
+		<ul>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p1.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Alexander Pushkin</div>
+							<div class="item-after">17:14</div>
+						</div>
+						<!--<div class="item-subtitle">New messages from John Doe</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p2.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Alexander Ostrovsky</div>
+							<div class="item-after">16:42</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p3.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Ivan Turgenev</div>
+							<div class="item-after">15:11</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p4.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Leo Tolstoy</div>
+							<div class="item-after">12:14</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p5.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Noname Nofamily</div>
+							<div class="item-after">9:21</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p6.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Alexander Griboedov</div>
+							<div class="item-after">5:11</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p1.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Alexander Pushkin</div>
+							<div class="item-after">17:14</div>
+						</div>
+						<!--<div class="item-subtitle">New messages from John Doe</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p2.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Alexander Ostrovsky</div>
+							<div class="item-after">16:42</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p3.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Ivan Turgenev</div>
+							<div class="item-after">15:11</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p4.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Leo Tolstoy</div>
+							<div class="item-after">12:14</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p5.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Noname Nofamily</div>
+							<div class="item-after">9:21</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="/message/" class="item-link item-content">
+					<div class="item-media img-circle">
+						<img src="images/test/p6.jpg" width="60">
+					</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-title">Alexander Griboedov</div>
+							<div class="item-after">5:11</div>
+						</div>
+						<!--<div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>-->
+						<div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+  </div>
+</div>

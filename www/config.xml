@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="dance.lifeis.judging" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>LifeIs.Judging</name>
+    <description>
+        Judging app for social network Lifeis.Dance
+    </description>
+    <author email="wiselion@yandex.ru" href="https://lifeis.dance">
+        Lifeis.Dance team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+
+    <splash src="www/res/splash/default.png" platform="ios" width="320" height="480" />
+    <splash src="www/res/splash/default@2x.png" platform="ios" width="640" height="960" />
+    <splash src="www/res/splash/default@3x.png" platform="ios" width="960" height="1440" />
+    <splash src="www/res/splash/default-568h@2x-iphone.png" width="640" height="1136"/>
+    <splash src="www/res/splash/default-667h.png" width="750" height="1334"/>
+    <splash src="www/res/splash/default-736h.png" width="1242" height="2208"/>
+
+    <splash src="www/res/splash/ldpi.png" platform="android" qualifier="ldpi" />
+    <splash src="www/res/splash/mdpi.png" platform="android" qualifier="mdpi" />
+    <splash src="www/res/splash/hdpi.png" platform="android" qualifier="hdpi" />
+    <splash src="www/res/splash/xhdpi.png" platform="android" qualifier="xhdpi" />
+
+    <platform name="android">
+		<preference name="phonegap-version" value="cli-7.1.0" />
+        <preference name="android-minSdkVersion" value="14" />
+        <resource-file src="google-services.json" target="app/google-services.json" />
+        <allow-intent href="market:*" />
+        <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
+        <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
+        <icon density="hdpi" src="www/res/icon/android/drawable-hdpi-icon.png" />
+        <icon density="xhdpi" src="www/res/icon/android/drawable-xhdpi-icon.png" />
+        <icon density="xxhdpi" src="www/res/icon/android/drawable-xxhdpi-icon.png" />
+        <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+<!--        <preference name="StatusBarBackgroundColor" value="#ffffff" />
+        <preference name="StatusBarStyle" value="blackopaque" />-->
+        <preference name="BackupWebStorage" value="none" />
+        <icon height="57" platform="ios" src="www/res/icon/ios/icon.png" width="57" />
+        <icon height="114" platform="ios" src="www/res/icon/ios/icon@2x.png" width="114" />
+        <icon height="40" platform="ios" src="www/res/icon/ios/icon-40.png" width="40" />
+        <icon height="80" platform="ios" src="www/res/icon/ios/icon-40@2x.png" width="80" />
+        <icon height="50" platform="ios" src="www/res/icon/ios/icon-50.png" width="50" />
+        <icon height="100" platform="ios" src="www/res/icon/ios/icon-50@2x.png" width="100" />
+        <icon height="60" platform="ios" src="www/res/icon/ios/icon-60.png" width="60" />
+        <icon height="120" platform="ios" src="www/res/icon/ios/icon-60@2x.png" width="120" />
+        <icon height="180" platform="ios" src="www/res/icon/ios/icon-60@3x.png" width="180" />
+        <icon height="72" platform="ios" src="www/res/icon/ios/icon-72.png" width="72" />
+        <icon height="144" platform="ios" src="www/res/icon/ios/icon-72@2x.png" width="144" />
+        <icon height="76" platform="ios" src="www/res/icon/ios/icon-76.png" width="76" />
+        <icon height="152" platform="ios" src="www/res/icon/ios/icon-76@2x.png" width="152" />
+        <icon height="29" platform="ios" src="www/res/icon/ios/icon-small.png" width="29" />
+        <icon height="58" platform="ios" src="www/res/icon/ios/icon-small@2x.png" width="58" />
+        <icon height="87" platform="ios" src="www/res/icon/ios/icon-small@3x.png" width="87" />
+    </platform>
+	<preference name="DisallowOverscroll" value="true" />
+    <preference name="orientation" value="portrait" />
+    <config-file platform="ios" parent="UISupportedInterfaceOrientations" mode="replace">
+        <array>
+            <string>UIInterfaceOrientationLandscapeOmg</string>
+        </array>
+    </config-file>
+	<config-file platform="ios" parent="NSLocationWhenInUseUsageDescription" overwrite="false">
+		<string>Need location access to find things nearby</string>
+	</config-file>
+	<config-file platform="ios" parent="NSContactsUsageDescription" overwrite="false">
+		<string>Need contacts access to search friends</string>
+	</config-file>
+	<config-file platform="ios" parent="NSCameraUsageDescription" overwrite="false">
+		<string>Need camera access to take pictures</string>
+	</config-file>
+	<config-file platform="ios" parent="NSPhotoLibraryUsageDescription" overwrite="false">
+		<string>Need photo library access to get pictures from there</string>
+	</config-file>
+	<config-file platform="ios" parent="NSPhotoLibraryAddUsageDescription" overwrite="false">
+		<string>Need photo library access to save pictures there</string>
+	</config-file>
+	<config-file platform="ios" parent="NSCalendarsUsageDescription" overwrite="false">
+		<string>Need set your events to calendar</string>
+	</config-file>
+	<config-file platform="android" parent="/manifest" mode="add">
+	    <uses-permission android:name="android.permission.INTERNET" />
+	    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	    <!--<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	    <uses-permission android:name="android.permission.CAMERA" />
+	    <uses-permission android:name="android.permission.READ_CONTACTS" />
+	    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+	</config-file>
+	<plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
+    <plugin name="cordova-plugin-console" spec="~1.0.1" />
+    <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
+    <!--<plugin name="cordova-plugin-globalization" spec="~1.11.0" />
+    <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />-->
+    <plugin name="cordova-plugin-device" spec="~2.0.2" />
+    <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
+    <!--<plugin name="cordova-plugin-camera" />
+    <plugin name="phonegap-plugin-push" source="npm" spec="~1.8.0">
+        <variable name="SENDER_ID" value="908372754074" />
+    </plugin>
+    <plugin spec="https://github.com/dbaq/cordova-plugin-contacts-phone-numbers.git" source="git" />-->
+</widget>

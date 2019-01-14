@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "908372754074",
+    "firebase_url": "https://life-is-dance.firebaseio.com",
+    "project_id": "life-is-dance",
+    "storage_bucket": "life-is-dance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908372754074:android:1d0a009f0e6c9a1a",
+        "android_client_info": {
+          "package_name": "dance.lifeis.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908372754074-7un0gis45sc25iqab5m3glpo915ork34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf4g38B4YErQ9u91VxaVH4F_rcgzH5XFA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,89 @@
+<template>
+	<div class="page">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="left">
+	          <a href="#" class="link back">
+	            <i class="icon icon-back"></i>
+	            <span class="ios-only">{{$root.lang.m.back}}</span>
+	          </a>
+			</div>
+			<div class="title sliding">{{lng.user}}</div>
+              <div class="right">
+                <a href="#view-settings" class="link icon-only panel-open avatar">
+                  <img src="images/user/profile.jpg"/>
+                </a>
+              </div>
+		</div>
+	</div>
+	<div class="page-content infinite-scroll-content" data-infinite-distance="200">
+		<div class="block">
+		{{#if user}}
+			<div class="img-lifeisdance img-avatar-big" style="background-image:url('{{user.photo}}');margin:auto;"></div>
+			<div class="block-title text-align-center" style="font-size:1.5em;">{{user.name}}</div>
+			<p class="text-align-center">{{user.about}}</p>
+			<div class="display-flex justify-content-center lifeisdance-user-digits">
+				<div><div class="lifeisdance-user-digit">{{user.ext.likes}}</div>posts</div>
+				<div><div class="lifeisdance-user-digit">{{user.ext.followers}}</div>followers</div>
+				<div><div class="lifeisdance-user-digit">{{user.ext.reposts}}</div>reposts</div>
+			</div>
+			<p></p>
+			<div class="row">
+				<div class="col-80">
+					<a href="#" class="button button-raised button-fill">Subscribe</a>
+				</div>
+				<div class="col-20">
+					<a href="#" class="button button-raised button-fill"><i class="icon material-icons">send</i></a>
+				</div>
+			</div>
+		{{/if}}
+		</div>
+
+		<div class="block-title">{{lng.posts}}</div>
+		<div class="tape-small"></div>
+		<!-- infinite scroll loader -->
+		<!--<div class="preloader infinite-scroll-preloader"></div>-->
+
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    data() {
+      return {
+        // empty initial user data
+        user: null,
+        lastupdate: null,
+        lng:lang.user
+      }
+    },
+    on: {
+      pageInit() {
+        var self = this;
+        var app = self.$app;
+
+        // тянем данные о конкретном пользователе
+        app.request.post(app_prms.url.userinfo, {user_id:self.$route.params.userId}, (reqdata) => {
+          self.$setState({
+            user: reqdata,
+          });
+        },'json');
+
+        // первые несколько блоков
+        LoadItemsToInfiniteTape(app_prms.url.usertape,self.$el.children('.page-content').children('.tape-small'),app_prms.tmpl.tapesmallcard);
+        // инициализация бесконечного скролла
+        self.$el.children('.infinite-scroll-content').on('infinite', function (e) {
+	        LoadItemsToInfiniteTape(app_prms.url.usertape,$$(this).children('.tape-small'),app_prms.tmpl.tapesmallcard);
+	    });
+		// перезагрузка ленты, если потянуть страницу вниз
+		/*$$('.ptr-content').on('ptr:refresh', function (e) {
+			var tape_el = $$(this).children('.tape-small');
+			LoadItemsToInfiniteTape(app_prms.url.tape,tape_el,app_prms.tmpl.tapesmallcard,function(){
+				tape_el.children().remove();
+			    app.ptr.done();
+			});
+		});*/
+      },
+    },
+  };
+</script>

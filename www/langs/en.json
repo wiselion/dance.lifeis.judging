@@ -1,0 +1,41 @@
+{
+	"login":{
+		"disconnect":"No connection to the server"
+	},
+	"m":{
+		"hello":"привет",
+		"fill":"заполните",
+		"form":"форма",
+		"about":"о приложении",
+		"notices":"уведомления"
+	},
+	"n":{
+		"back":"Назад",
+		"forward":"Вперед",
+		"top":"Вверх"
+	},
+	"l":{
+		"username":"Имя пользователя",
+		"login":"Логин",
+		"password":"Пароль",
+		"your_username":"Ваше имя пользователя",
+		"your_password":"Ваш пароль",
+		"signin":"Войти"
+	},
+	"mess":{
+		"messages":"Messages"
+	},
+	"user":{
+		"user":"User",
+		"posts":"Posts"
+	},
+	"tag":{
+		"tag":"Tag"
+	},
+	"post":{
+		"post":"Post",
+		"posts":"Posts",
+		"comments":"Comments",
+		"answer":"Answer"
+	}
+}

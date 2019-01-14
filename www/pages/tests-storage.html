@@ -1,0 +1,62 @@
+<div class="page" data-name="about">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+      <div class="title">Test Storage</div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="block">
+      <div class="row">
+        <div class="col-50">
+          <a onclick="ReadAllCookies();" class="button button-raised button-fill">Read Cookies</a>
+        </div>
+        <div class="col-50">
+          <a onclick="ReadAllLS();" class="button button-raised button-fill">Read Localstorage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-50">
+          <a onclick="setCookie('test','1',{expires:3600*1000});" class="button button-raised button-fill">Set Cookie 1</a>
+        </div>
+        <div class="col-50">
+          <a onclick="setCookie('test','2',{expires:3600*1000});" class="button button-raised button-fill">Set Cookie 2</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-50">
+          <a onclick="setCookie('test','3',{expires:3600*1000});" class="button button-raised button-fill">Set Cookie 3</a>
+        </div>
+        <div class="col-50">
+          <a onclick="setCookie('test','4',{expires:3600*1000});" class="button button-raised button-fill">Set Cookie 4</a>
+        </div>
+      </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-50">
+          <a onclick="SetLSItem(1);" class="button button-raised button-fill">Set LS 1</a>
+        </div>
+        <div class="col-50">
+          <a onclick="SetLSItem(2);" class="button button-raised button-fill">Set LS 2</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-50">
+          <a onclick="SetLSItem(3);" class="button button-raised button-fill">Set LS 3</a>
+        </div>
+        <div class="col-50">
+          <a onclick="SetLSItem(4);" class="button button-raised button-fill">Set LS 4</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
