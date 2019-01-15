@@ -30,11 +30,49 @@
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar"></div>
 
+	<div class="panel panel-right panel-reveal theme-dark">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Menu</div>
+            </div>
+          </div>
+          <div class="page-content">
+			<div class="list clay-to-top">
+			  <ul>
+			    <li>
+			      <a href="#" onclick="SelectTour();" class="item-link item-content">
+			        <div class="item-media"><i class="material-icons">list</i></div>
+			        <div class="item-inner">
+			          <div class="item-title">Select tour</div>
+			        </div>
+			      </a>
+			    </li>
+			    <li>
+			      <a href="/logout/" class="item-link item-content">
+			        <div class="item-media"><i class="material-icons">input</i></div>
+			        <div class="item-inner">
+			          <div class="item-title">Logout</div>
+			        </div>
+			      </a>
+			    </li>
+			  </ul>
+			</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Views/Tabs container -->
     <div class="views tabs ios-edges">
       <!-- Tabbar for switching views-tabs -->
       <div class="toolbar tabbar-labels toolbar-bottom-md" id="bottom-toolbar">
-        <div class="toolbar-inner">TOOLBAR</div>
+        <div class="toolbar-inner">
+			<a onclick="RefreshState();" href="#" class="link icon-only">
+				<i class="material-icons">refresh</i>
+			</a>
+		</div>
       </div>
 
       <div id="view-home" class="view view-main tab tab-active">

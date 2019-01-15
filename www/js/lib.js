@@ -13,6 +13,13 @@ var userdata = {};
 var battery = {};
 // token
 var connectionToken = '';
+// offline режим
+var offline = false;
+// имя планшета
+var tabletName = '';
+// текущий турнир
+var tour_id = '';
+var tour_name = '';
 
 // ------------- SYS LIB --------------- //
 String.prototype.printf = function() {
@@ -40,13 +47,23 @@ function InitConnection() {
 	// посылаем запрос на данные пользователя
 	app.request.post(app_prms.url.userdata, {token:token}, (req) => {
 		userdata = req;
+		if(userdata.tournaments!==undefined) SetTournaments(userdata.tournaments);
+		offline = false;
 		InitViews();
 	},
 	(xhr, status) => {
 		app.preloader.hide();
 		if(status==401 || status==403) SetNotAuth();
-		else app.dialog.alert(lang.login.disconnect);
+		else {
+			app.dialog.confirm('Продолжение работы возможно только в offline режиме. Повторить подключение еще раз?', lang.login.disconnect, InitConnection, SetOfflineMode);
+			//app.dialog.alert(lang.login.disconnect);
+		}
 	},'json');
+}
+// Init/Create views
+function SetOfflineMode() {
+	offline = true;
+	InitViews();
 }
 // Init/Create views
 function InitViews() {
@@ -57,6 +74,7 @@ function InitViews() {
 	if(messagesView===undefined) messagesView = app.views.create('#view-messages',{url:'/messages/'});
 	if(noticesView===undefined) noticesView = app.views.create('#view-notices',{url:'/notices/'});*/
 	app.preloader.hide();
+	InitTournament();
 	//InitPush();
 }
 function InitAppAfterLogin() {
@@ -110,6 +128,117 @@ function setToken(token) {
 function clearToken() {
 	localStorage.removeItem('connectionToken');
 	connectionToken = '';
+}
+// ------------- ИНИЦИАЛИЗАЦИЯ ПЛАНШЕТА ------------------//
+function RefreshState() {
+	console.log('refresh state');
+}
+function InitTournament() {
+	if(!GetTabletName()) app.dialog.prompt(
+		'Необходимо задать имя для планшета',
+		'Имя планшета',
+		function(name){
+			if(name) SetTabletName(name); else InitTournament();
+		},
+		InitTournament
+	);
+	var tours = GetTournaments();
+	//if(ObjectLength(tours)) {
+	if(!GetTourId() || !GetTourName()) {
+		SelectTour();
+	} else {
+		//app.dialog.alert('Нет доступных чемпионатов!');
+		// start tour
+	}
+	//if(!GetTabletName()) app.dialog.confirm('Необходимо задать имя для планшета', function(name){if(name) SetTabletName(name) else InitTournament();});
+}
+// open popup window
+function SelectTour() {
+	var str = '';
+	var tours = GetTournaments();
+	if(ObjectLength(tours)) {
+		str += '<li class="item-content item-input"><div class="item-inner"><div class="item-title item-label">Турнир</div><div class="item-input-wrap input-dropdown-wrap"><select placeholder="Выберите турнир ..." name="tour_id">';
+		for(var i in tours) {
+			str += '<option '+(tour_id==i ? 'selected' : '')+' value="'+i+'">'+tours[i]+'</option>';
+		}
+		str += '</select>';
+		str += '</div></div></li>';
+	} else {
+		str += '<li>Доступные чемпионаты не найдены</li>';
+	}
+	var popup = app.popup.create({
+	  content: '<div id="popup_select_tour" class="popup"><form><div class="list inline-labels no-hairlines-md"><ul>'+str+'</ul></div><p><button type="submit" id="select_tour_button" class="button button-raised button-fill">Выбрать</button><a class="popup-close button color-red">Закрыть</a></p></form></div>',
+	  on: {
+	    opened: function () {
+			$$('#popup_select_tour form').on('submit',function(e){
+				e.preventDefault();
+				if(this.tour_id.value) {
+					var tours = GetTournaments();
+					SetTourId(this.tour_id.value);
+					SetTourName(tours[this.tour_id.value]);
+					popup.close().destroy();
+				}
+				return false;
+			});
+	    }
+	  }
+	}).open();
+}
+// get tablet name
+function GetTabletName() {
+	if(!tabletName) {
+		tabletName = localStorage.getItem('tabletName');
+	}
+	return tabletName;
+}
+// set tablet name
+function SetTabletName(name) {
+	if(name!==undefined) {
+		localStorage.setItem('tabletName',name);
+		tabletName = name;
+	}
+}
+// get tournament name
+function GetTourName() {
+	if(!tour_name) {
+		tour_name = localStorage.getItem('tour_name');
+	}
+	return tour_name;
+}
+// set tournament name
+function SetTourName(name) {
+	if(name!==undefined) {
+		localStorage.setItem('tour_name',name);
+		tour_name = name;
+	}
+}
+// get tournament id
+function GetTourId() {
+	if(!tour_id) {
+		tour_id = localStorage.getItem('tour_id');
+	}
+	return tour_id;
+}
+// set tournament id
+function SetTourId(id) {
+	if(id!==undefined) {
+		localStorage.setItem('tour_id',id);
+		tour_id = id;
+	}
+}
+// get tournament id
+function GetTournaments() {
+	if(userdata.tournaments===undefined) {
+		userdata.tournaments = json_decode(localStorage.getItem('tournaments'));
+	}
+	return userdata.tournaments;
+}
+// set tournament id
+function SetTournaments(data) {
+	if(data!==undefined) {
+		localStorage.setItem('tournaments',json_encode(data));
+		userdata.tournaments = data;
+	}
 }
 // ------------- BATTERY ------------------//
 function InitBatteryStatus() {
@@ -183,6 +312,35 @@ function LoadItemsToInfiniteTape(url,container,tmpl,f_beforecomplete,f_aftercomp
 		console.log(status);
 		if(status==401 || status==403) SetNotAuth(); //console.log('show login screen');
 	},'json');
+}
+
+// -------------------------------------- JSON FUNCTIONS ------------------------------------------------ //
+function json_encode(obj) {
+	return JSON.stringify(obj);
+}
+function json_decode(JSONtext) {
+	var obj = {};
+	if(isValidJSON(JSONtext)) {
+		var obj = eval('(' + JSONtext + ')');
+		//var obj = JSON.parse(JSONtext);
+		//var obj = jQuery.parseJSON(JSONtext);
+	}
+	return obj;
+}
+function isValidJSON(src) {
+    var filtered = src;
+    filtered = filtered.replace(/\\["\\\/bfnrtu]/g, '@');
+    filtered = filtered.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']');
+    filtered = filtered.replace(/(?:^|:|,)(?:\s*\[)+/g, '');
+
+    return (/^[\],:{}\s]*$/.test(filtered));
+};
+
+// -------------------------------------- SYSTEM FUNCTIONS ------------------------------------------------ //
+function ObjectLength(obj) {
+	var l = 0;
+	for(var i in obj) l++;
+	return l;
 }
 
 // ------------- MESSAGES --------------- //
