@@ -55,3 +55,22 @@ app_prms.tmpl.postcomments = Template7.compile(
 		'</div>'+
     '{{/each}}'
 );
+
+// TOUR CATS
+app_prms.tmpl.tour_cats = Template7.compile(
+	'<div class="list media-list chevron-center">'+
+	'<ul>'+
+	'{{#each this}}'+
+		'<li><a href="/hit/{{this.id}}/{{this.final}}/" class="item-link item-content">'+
+			'<div class="item-inner">'+
+			'<div class="item-title-row">'+
+			'<div class="item-title">{{this.title}}</div>'+
+			'<div class="item-after">{{this.time}}</div>'+
+			'</div>'+
+			'<div class="item-subtitle">{{this.final_type}}</div>'+
+			'</div>'+
+		'</a></li>'+
+	'{{/each}}'+
+	'</ul>'+
+	'</div>'
+);

@@ -4,11 +4,6 @@
           <!-- Top Navbar -->
           <div class="navbar">
             <div class="navbar-inner">
-              <!--<div class="left">
-                <a onclick="GetMyPhoto();" href="#" class="link icon-only panel-open">
-                  <i class="material-icons">add_a_photo</i>
-                </a>
-              </div>-->
 				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
 				<div class="right">
 					<a href="#" class="link icon-only panel-open" data-panel="right">
@@ -20,7 +15,7 @@
           </div>
 
 			<!-- Scrollable page content-->
-			<div class="page-content ptr-content infinite-scroll-content" data-infinite-distance="500">
+			<div class="page-content ptr-content" data-infinite-distance="500">
 			
 			<div class="ptr-preloader">
 				<div class="preloader"></div>
@@ -29,9 +24,6 @@
 			
 			<div class="tape-items">
 			</div>
-			
-			<!-- infinite scroll loader -->
-			<div class="preloader infinite-scroll-preloader"></div>
 
           </div>
         </div>
@@ -51,19 +43,19 @@
       pageInit() {
         var self = this;
         // первые несколько блоков
-        /*LoadItemsToInfiniteTape(app_prms.url.tape,self.$el.children('.page-content').children('.tape-items'),app_prms.tmpl.tapecard);
+        LoadItemsToInfiniteTape(app_prms.url.data,self.$el.children('.page-content').children('.tape-items'),app_prms.tmpl.tour_cats,undefined,undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
         // инициализация бесконечного скролла
-        self.$el.children('.infinite-scroll-content').on('infinite', function (e) {
-	        LoadItemsToInfiniteTape(app_prms.url.tape,$$(this).children('.tape-items'),app_prms.tmpl.tapecard);
-	    });
+        /*self.$el.children('.infinite-scroll-content').on('infinite', function (e) {
+	        LoadItemsToInfiniteTape(app_prms.url.data,$$(this).children('.tape-items'),app_prms.tmpl.tour_cats,undefined,undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
+	    });*/
 		// перезагрузка ленты, если потянуть страницу вниз
 		$$('.ptr-content').on('ptr:refresh', function (e) {
 			var tape_el = $$(this).children('.tape-items');
-			LoadItemsToInfiniteTape(app_prms.url.tape,tape_el,app_prms.tmpl.tapecard,function(){
+			LoadItemsToInfiniteTape(app_prms.url.data,tape_el,app_prms.tmpl.tour_cats,function(){
 				tape_el.children().remove();
 			    app.ptr.done();
-			});
-		});*/
+			},undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
+		});
       },
     },
     methods: {

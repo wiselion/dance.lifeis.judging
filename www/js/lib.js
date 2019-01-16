@@ -20,6 +20,7 @@ var tabletName = '';
 // текущий турнир
 var tour_id = '';
 var tour_name = '';
+var tour_cats = {};
 
 // ------------- SYS LIB --------------- //
 String.prototype.printf = function() {
@@ -240,6 +241,20 @@ function SetTournaments(data) {
 		userdata.tournaments = data;
 	}
 }
+// get tournament cats
+function GetCats(id) {
+	if(tour_cats===undefined) {
+		tour_cats = json_decode(localStorage.getItem('cats_'+id));
+	}
+	return tour_cats;
+}
+// set tournament cats
+function SetCats(id,data) {
+	if(data!==undefined) {
+		localStorage.setItem('cats_'+id,json_encode(data));
+		tour_cats = data;
+	}
+}
 // ------------- BATTERY ------------------//
 function InitBatteryStatus() {
 	navigator.getBattery().then(function(bat) {
@@ -288,14 +303,15 @@ function InitGlobalPreferredLanguagePlugin() {
 }
 
 // ------------- LOADING --------------- //
-function LoadItemsToInfiniteTape(url,container,tmpl,f_beforecomplete,f_aftercomplete) {
+function LoadItemsToInfiniteTape(url,container,tmpl,f_beforecomplete,f_aftercomplete,mydata) {
 	//console.log('load items to scroll');
 	//console.log(url);
 	//console.log(container);
 	//console.log(tmpl);
+	console.log(mydata);
 	if(container.hasClass('loadstate')) return;
 	container.addClass('loadstate');
-	app.request.post(url, {}, (reqdata) => {
+	app.request.post(url, mydata, (reqdata) => {
 		if(f_beforecomplete!==undefined) f_beforecomplete();
 		var html = tmpl(reqdata);
 		//console.log(html);

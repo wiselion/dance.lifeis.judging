@@ -2,6 +2,7 @@
 app_prms.url = {
 	auth: 'https://cp.lifeis.dance/app/auth.php',
 	token: 'https://cp.lifeis.dance/app/token.php',
+	data: 'https://cp.lifeis.dance/app/data.php',
 	userdata: 'https://cp.lifeis.dance/app/userdata.php',
 	login: 'https://cp.lifeis.dance/app/login.php',
 	logout: 'https://cp.lifeis.dance/app/logout.php',
@@ -24,11 +25,11 @@ routes = [
     componentUrl: './pages/cs_categories.html',
   },
   {
-    path: '/hit/:hitId/',
+    path: '/hit/:hitId/:final/',
     componentUrl: './pages/cs_hit_judges.html',
   },
   {
-    path: '/hit/:hitId/:judgeId/',
+    path: '/hit/:hitId/:final/:judgeId/',
     componentUrl: './pages/cs_hit.html',
   },
 
