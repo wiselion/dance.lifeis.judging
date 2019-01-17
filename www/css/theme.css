@@ -31,6 +31,14 @@
 .md .color-theme-lifeisdance.subnavbar {
   background: #f4f4f4;
 }
+.md .tabbar a.tab-link,
+.md .tabbar-labels a.tab-link {
+  color: #000;
+}
+.md .tabbar a.tab-link.tab-link-active,
+.md .tabbar-labels a.tab-link.tab-link-active {
+  color: #8d4097;
+}
 .ios .color-theme-lifeisdance .list-button {
   color: #8d4097;
 }

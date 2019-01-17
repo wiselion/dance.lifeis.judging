@@ -20,7 +20,7 @@
             </div>
           </div>
 
-		<div class="toolbar tabbar">
+		<div class="toolbar tabbar toolbar-bottom-md">
 			<div class="toolbar-inner">
 			{{#each cat.balls}}
 				<a href="#tab-{{@key}}" class="tab-link{{#js_if "@key === ../first_dance_index"}} tab-link-active{{/js_if}}">{{@key}}</a>
@@ -31,9 +31,17 @@
 		<div class="tabs">
 			{{#each cat.balls}}
 				<div id="tab-{{@key}}" class="page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
-					<div class="block">
-					<p>{{this}}</p>
-					</div>
+					<div class="block-title">{{../title}}<br/>{{../judge_name}}, {{this}}</div>
+					{{#each ../cat.rondas}}
+						<div class="block-title">Заход {{@key}}</div>
+						<div class="block">
+							<div class="row">
+							{{#each this}}
+								<button class="col button button-fill color-white text-color-white">{{this}}</button>
+							{{/each}}
+							</div>
+						</div>
+					{{/each}}
 				</div>
 			{{/each}}
 		</div>
@@ -59,6 +67,7 @@
         final: this.$route.params.final,
         cat: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final],
         first_dance_index: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
+        curr_tab: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
       }
     },
     on: {
@@ -69,7 +78,27 @@
     },
     methods: {
       saveDance: function () {
-        $app.dialog.alert('Dance saved!');
+	    var self = this;
+	    var cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
+	    console.log(this);
+	    console.log(cat);
+	    // check results THEN
+	    var find = false; var new_tab = '';
+	    // find next
+	    for(var i in cat.balls) {
+		    if(find) {
+			    new_tab = i;
+			    break;
+			}
+		    if(this.curr_tab==i) find = true;
+	    }
+	    if(new_tab) {
+		    self.$setState({curr_tab:new_tab});
+		    self.$app.tab.show('#tab-'+new_tab);
+		    console.log("new dance");
+	    } else {
+	        self.$app.dialog.alert('Dance saved!');
+	    }
       },
     }
   };
