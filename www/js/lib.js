@@ -21,6 +21,8 @@ var tabletName = '';
 var tour_id = '';
 var tour_name = '';
 var tour_cats = {};
+var tour_cats_last;
+var componentCats;
 
 // ------------- SYS LIB --------------- //
 String.prototype.printf = function() {
@@ -134,6 +136,63 @@ function clearToken() {
 function RefreshState() {
 	console.log('refresh state');
 }
+// устанавливаем загруженные категории
+function SetLoadedCats(f_tour_id,cats) {
+	/*if(f_tour_id!=tour_id) {
+		GetCats()
+	}*/
+	if(cats!==undefined) {
+		var num = 0; var ldate = tour_cats_last!==undefined ? tour_cats_last : 0;
+		for(var cid in cats) {
+			if(cats[cid].ldate) ldate = Math.max(ldate);
+			// обновляем или вставляем элемент
+			if(cats[cid].status) {
+				tour_cats[cid] = cats[cid];
+				num++;
+			// удаляем готовый, если не есть
+			} else {
+				if(tour_cats[cid]) {
+					delete tour_cats[cid];
+					num++;
+				}
+			}
+		}
+		if(num) {
+			SetCats(f_tour_id,tour_cats,ldate);
+			//if(f_tour_id==tour_id) componentCats.$setState({cats:tour_cats,lastid:tour_cats_last});
+		}
+	}
+}
+function LoadTourCats(prms) {
+	if(prms===undefined) var prms = {};
+	// если offline режим просто обновляем данные
+	if(offline || prms.offline) {
+		componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
+		return;
+	}
+	var f_tour_id = prms.tour_id!==undefined?prms.tour_id:tour_id;
+	console.log({last:tour_cats_last,tour_id:f_tour_id});
+	app.request.post(app_prms.url.data, {action:'cats',last:tour_cats_last,tour_id:f_tour_id}, (reqdata) => {
+		if(prms.func_before!==undefined) prms.func_before();
+		// разбираем данные
+		SetLoadedCats(f_tour_id,reqdata);
+		if(prms.func_after!==undefined) prms.func_after();
+	},
+	(xhr, status) => {
+		console.log('error xhr loading');
+		console.log(status);
+		if(status==401 || status==403) SetNotAuth();
+		else {
+			if(tour_cats_last!==undefined) {
+				offline = true;
+				if(prms.lastid===undefined || (prms.lastid!==undefined && prms.lastid<tour_cats_last)) {
+					componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
+				}
+			}
+		}
+	},'json');
+	return;
+}
 function InitTournament() {
 	if(!GetTabletName()) app.dialog.prompt(
 		'Необходимо задать имя для планшета',
@@ -152,6 +211,18 @@ function InitTournament() {
 		// start tour
 	}
 	//if(!GetTabletName()) app.dialog.confirm('Необходимо задать имя для планшета', function(name){if(name) SetTabletName(name) else InitTournament();});
+}
+// open set tablet name
+function SelectTabletName() {
+	app.dialog.prompt(
+		'Введите имя для планшета',
+		'Имя планшета',
+		function(name){
+			if(name) SetTabletName(name);
+		},
+		InitTournament,
+		GetTabletName()
+	);
 }
 // open popup window
 function SelectTour() {
@@ -177,7 +248,11 @@ function SelectTour() {
 					var tours = GetTournaments();
 					SetTourId(this.tour_id.value);
 					SetTourName(tours[this.tour_id.value]);
+					if(componentCats!==undefined) componentCats.$setState({title:GetTourName()});
+					//var cats = GetCats();
+					LoadTourCats();
 					popup.close().destroy();
+					app.panel.close('right');
 				}
 				return false;
 			});
@@ -224,7 +299,10 @@ function GetTourId() {
 function SetTourId(id) {
 	if(id!==undefined) {
 		localStorage.setItem('tour_id',id);
-		tour_id = id;
+		if(tour_id!=id) {
+			tour_id = id;
+			GetCats(id);
+		}
 	}
 }
 // get tournament id
@@ -243,16 +321,28 @@ function SetTournaments(data) {
 }
 // get tournament cats
 function GetCats(id) {
-	if(tour_cats===undefined) {
-		tour_cats = json_decode(localStorage.getItem('cats_'+id));
+	if(id!==undefined) {
+		f_tour_cats = json_decode(localStorage.getItem('cats_'+id));
+		f_tour_cats_last = localStorage.getItem('cats_last_'+id);
+		// только если совпадает активный id
+		if(id==tour_id) {
+			tour_cats = f_tour_cats;
+			tour_cats_last = f_tour_cats_last;
+		}
 	}
-	return tour_cats;
+	return f_tour_cats;
 }
 // set tournament cats
-function SetCats(id,data) {
+function SetCats(id,data,last_id) {
 	if(data!==undefined) {
 		localStorage.setItem('cats_'+id,json_encode(data));
-		tour_cats = data;
+		localStorage.setItem('cats_last_'+id,last_id);
+		// только если совпадает активный id
+		if(id==tour_id) {
+			tour_cats = data;
+			tour_cats_last = last_id;
+			if(componentCats!==undefined) componentCats.$setState({cats:tour_cats,lastid:tour_cats_last});
+		}
 	}
 }
 // ------------- BATTERY ------------------//
@@ -357,6 +447,10 @@ function ObjectLength(obj) {
 	var l = 0;
 	for(var i in obj) l++;
 	return l;
+}
+function ObjectFirstKey(obj) {
+	for(var i in obj) return i;
+	return '';
 }
 
 // ------------- MESSAGES --------------- //

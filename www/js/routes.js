@@ -25,7 +25,7 @@ routes = [
     componentUrl: './pages/cs_categories.html',
   },
   {
-    path: '/hit/:hitId/:final/',
+    path: '/judges/:hitId/:final/',
     componentUrl: './pages/cs_hit_judges.html',
   },
   {

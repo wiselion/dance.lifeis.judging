@@ -1,0 +1,76 @@
+<template>
+        <!-- Page, data-name contains page name which can be used in page callbacks -->
+        <div class="page" data-name="hit">
+          <!-- Top Navbar -->
+          <div class="navbar">
+            <div class="navbar-inner">
+				<div class="left">
+					<a href="#" class="link back">
+						<i class="icon icon-back"></i>
+						<span class="ios-only">Back</span>
+					</a>
+				</div>
+				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
+				<div class="right">
+					<a @click="saveDance" class="link icon-only">
+						<i class="icon f7-icons ios-only">check</i>
+						<i class="icon material-icons md-only">check</i>
+					</a>
+				</div>
+            </div>
+          </div>
+
+		<div class="toolbar tabbar">
+			<div class="toolbar-inner">
+			{{#each cat.balls}}
+				<a href="#tab-{{@key}}" class="tab-link{{#js_if "@key === ../first_dance_index"}} tab-link-active{{/js_if}}">{{@key}}</a>
+			{{/each}}
+			</div>
+		</div>
+
+		<div class="tabs">
+			{{#each cat.balls}}
+				<div id="tab-{{@key}}" class="page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
+					<div class="block">
+					<p>{{this}}</p>
+					</div>
+				</div>
+			{{/each}}
+		</div>
+			<!-- Scrollable page content-->
+			<!--<div class="page-content">
+
+			<div class="block-title">{{title}}<br/>{{judge_name}}</div>
+			<div id="judging" class="fields">
+			</div>
+
+          </div>-->
+        </div>
+</template>
+<script>
+  return {
+    data() {
+      return {
+        // empty initial user data
+        title: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].title+', '+tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].final_type, //+', '+tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].desc,
+        judge_name: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].judges[this.$route.params.judgeId],
+        judge_id: this.$route.params.judgeId,
+        hit_id: this.$route.params.hitId,
+        final: this.$route.params.final,
+        cat: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final],
+        first_dance_index: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
+      }
+    },
+    on: {
+      pageInit() {
+        var self = this;
+        console.log(this.$route.params);
+      },
+    },
+    methods: {
+      saveDance: function () {
+        $app.dialog.alert('Dance saved!');
+      },
+    }
+  };
+</script>

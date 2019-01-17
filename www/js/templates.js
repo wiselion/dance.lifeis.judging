@@ -61,6 +61,7 @@ app_prms.tmpl.tour_cats = Template7.compile(
 	'<div class="list media-list chevron-center">'+
 	'<ul>'+
 	'{{#each this}}'+
+	    '{{#if this.status}}'+
 		'<li><a href="/hit/{{this.id}}/{{this.final}}/" class="item-link item-content">'+
 			'<div class="item-inner">'+
 			'<div class="item-title-row">'+
@@ -68,8 +69,10 @@ app_prms.tmpl.tour_cats = Template7.compile(
 			'<div class="item-after">{{this.time}}</div>'+
 			'</div>'+
 			'<div class="item-subtitle">{{this.final_type}}</div>'+
+			'<div class="item-text">{{this.desc}}</div>'+
 			'</div>'+
 		'</a></li>'+
+	    '{{/if}}'+
 	'{{/each}}'+
 	'</ul>'+
 	'</div>'

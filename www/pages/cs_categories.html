@@ -22,7 +22,24 @@
 				<div class="ptr-arrow"></div>
 			</div>
 			
+			<div class="block-title">{{title}}</div>
 			<div class="tape-items">
+				<div class="list media-list chevron-center"><ul>
+				{{#each cats}}
+				{{#if status}}
+					<li><a href="/judges/{{hit_id}}/{{final}}/" class="item-link item-content">
+						<div class="item-inner">
+							<div class="item-title-row">
+								<div class="item-title">{{title}}</div>
+								<div class="item-after">{{time}}</div>
+							</div>
+							<div class="item-subtitle">{{final_type}}</div>
+							<div class="item-text">{{desc}}</div>
+						</div>
+					</a></li>
+				{{/if}}
+				{{/each}}
+				</ul></div>
 			</div>
 
           </div>
@@ -33,21 +50,22 @@
     data() {
       return {
         // empty initial user data
-        tape: null,
-        lastid: null,
+        title: tour_name,
+        cats: tour_cats,
+        lastid: tour_cats_last,
         lng:lang.mess,
-        allowInfinite: true
+        //allowInfinite: true,
+        //testval: function(e) {console.log('get new vals in cs_categories');console.log(e); return 'xxx';}
       }
     },
     on: {
       pageInit() {
         var self = this;
-        // первые несколько блоков
+        componentCats = this;
+        LoadTourCats({lastid:self.lastid});
+        //console.log(self);
+        /*// первые несколько блоков
         LoadItemsToInfiniteTape(app_prms.url.data,self.$el.children('.page-content').children('.tape-items'),app_prms.tmpl.tour_cats,undefined,undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
-        // инициализация бесконечного скролла
-        /*self.$el.children('.infinite-scroll-content').on('infinite', function (e) {
-	        LoadItemsToInfiniteTape(app_prms.url.data,$$(this).children('.tape-items'),app_prms.tmpl.tour_cats,undefined,undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
-	    });*/
 		// перезагрузка ленты, если потянуть страницу вниз
 		$$('.ptr-content').on('ptr:refresh', function (e) {
 			var tape_el = $$(this).children('.tape-items');
@@ -55,6 +73,11 @@
 				tape_el.children().remove();
 			    app.ptr.done();
 			},undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
+		});*/
+		$$('.ptr-content').on('ptr:refresh', function (e) {
+			LoadTourCats({lastid:self.lastid,func_before:function(){
+			    app.ptr.done();
+			}});
 		});
       },
     },
