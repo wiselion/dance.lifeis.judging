@@ -39,7 +39,7 @@
 						<div class="block margin-bottom">
 							<div class="row no-gap">
 							{{#each this}}
-								<button @click="setPair" hitstate="new" pair_id="{{@key}}" class="col button button-big button-fill color-gray">{{this}}</button>
+								<button @click="setPair" ball_id="{{../../@key}}" hitstate="new" pair_id="{{@key}}" class="col button button-big button-fill color-gray">{{this}}</button>
 							{{/each}}
 							</div>
 						</div>
@@ -58,7 +58,7 @@
 								<div class="col-20 pair_number"><button class="col button button-big button-fill color-gray">{{this}}</button></div>
 								<div class="col-80 row no-gap">
 								{{#each ../../../marks}}
-									<button @click="setPairSkating" hitstate="new" pair_id="{{../@key}}" mark_id="{{this}}" class="col button button-big button-fill">{{this}}</button>
+									<button @click="setPairSkating" ball_id="{{../../../@key}}" hitstate="new" pair_id="{{../@key}}" mark_id="{{this}}" class="col button button-big button-fill">{{this}}</button>
 								{{/each}}
 								</div>
 							</div>
@@ -222,8 +222,8 @@
       saveDance: function () {
 	    var self = this;
 	    var cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
-	    console.log(this);
-	    console.log(cat);
+	    //console.log(this);
+	    //console.log(cat);
 
 	    var atab = $$('.judging.tab-active[id]');
 	    var atab_id = atab.attr("id");
@@ -231,7 +231,9 @@
 	    // на какой вкладке находимся
 	    var dance = tmp[1];
 
-	    // check results THEN
+	    // проверяем счетчик отмеченных
+	    var qty = atab.find('.button[pair_id][hitstate="yes"]').length;
+	    if(qty!=this.maxpairs) return;
 
 	    // находим неотсуженные слева направо
 	    delete this.balls[dance];
@@ -253,7 +255,22 @@
 		    self.$app.tab.show('#tab-'+new_tab);
 		    console.log("new dance");
 	    } else {
-	        self.$app.dialog.alert('Judging complete!');
+		    // собираем результаты
+		    var rdata = {};
+		    $$('.judging.tab .button[pair_id][hitstate="yes"]').each(function(n,o){
+			    var pair_id = $$(o).attr("pair_id");
+			    var ball_id = $$(o).attr("ball_id");
+			    var mark_id = $$(o).attr("mark_id") ? $$(o).attr("mark_id") : 1;
+			    if(pair_id!==undefined && ball_id!==undefined) {
+				    if(rdata[ball_id]===undefined) rdata[ball_id] = {};
+				    rdata[ball_id][pair_id] = mark_id;
+			    }
+		    });
+		    //console.log(rdata);
+		    // записываем результаты
+		    SetResults(tour_id,this.$route.params.hitId+'-'+this.$route.params.final,this.$route.params.judgeId,rdata);
+		    // завершаем
+	        self.$app.dialog.alert('Complete!');
 	        app.router.navigate('/',{clearPreviousHistory:true});
 	    }
       },

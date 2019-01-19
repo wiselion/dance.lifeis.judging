@@ -23,6 +23,8 @@ var tour_name = '';
 var tour_cats = {};
 var tour_cats_last;
 var componentCats;
+var tour_results = {};
+var upload_results = {};
 
 // ------------- SYS LIB --------------- //
 String.prototype.printf = function() {
@@ -202,6 +204,10 @@ function InitTournament() {
 		},
 		InitTournament
 	);
+
+	// загружаем пакеты для загрузки из хранилища
+	GetUploadResults();
+
 	var tours = GetTournaments();
 	//if(ObjectLength(tours)) {
 	if(!GetTourId() || !GetTourName()) {
@@ -246,9 +252,10 @@ function SelectTour() {
 				e.preventDefault();
 				if(this.tour_id.value) {
 					var tours = GetTournaments();
+					SaveResults();
 					SetTourId(this.tour_id.value);
 					SetTourName(tours[this.tour_id.value]);
-					if(componentCats!==undefined) componentCats.$setState({title:GetTourName()});
+					if(PageCatsStatus()) componentCats.$setState({title:GetTourName()});
 					//var cats = GetCats();
 					LoadTourCats();
 					popup.close().destroy();
@@ -259,6 +266,10 @@ function SelectTour() {
 	    }
 	  }
 	}).open();
+}
+// проверка статуса страницы категорий
+function PageCatsStatus() {
+	return componentCats!==undefined && $$('.page[data-name="home"]').length ? true : false;
 }
 // get tablet name
 function GetTabletName() {
@@ -322,12 +333,14 @@ function SetTournaments(data) {
 // get tournament cats
 function GetCats(id) {
 	if(id!==undefined) {
-		f_tour_cats = json_decode(localStorage.getItem('cats_'+id));
-		f_tour_cats_last = localStorage.getItem('cats_last_'+id);
+		var f_tour_cats = json_decode(localStorage.getItem('cats_'+id));
+		var f_tour_cats_last = localStorage.getItem('cats_last_'+id);
+		var f_tour_results = json_decode(localStorage.getItem('results_'+id));
 		// только если совпадает активный id
 		if(id==tour_id) {
 			tour_cats = f_tour_cats;
 			tour_cats_last = f_tour_cats_last;
+			tour_results = f_tour_results;
 		}
 	}
 	return f_tour_cats;
@@ -341,8 +354,57 @@ function SetCats(id,data,last_id) {
 		if(id==tour_id) {
 			tour_cats = data;
 			tour_cats_last = last_id;
-			if(componentCats!==undefined) componentCats.$setState({cats:tour_cats,lastid:tour_cats_last});
+			if(PageCatsStatus()) componentCats.$setState({cats:tour_cats,lastid:tour_cats_last});
 		}
+	}
+}
+// get tournament results
+function GetResults(id) {
+	if(id!==undefined) {
+		var f_tour_results = json_decode(localStorage.getItem('results_'+id));
+		// только если совпадает активный id
+		if(id==tour_id) {
+			tour_results = f_tour_results;
+		}
+	}
+	return f_tour_results;
+}
+// set tournament results to localstorage
+function SaveResults() {
+	if(tour_id!==undefined && tour_results!==undefined) {
+		localStorage.setItem('results_'+tour_id,json_encode(tour_results));
+	}
+}
+// set tournament results
+function SetResults(id,cid,jid,data) {
+	if(id!==undefined && cid!==undefined && jid!==undefined && data!==undefined) {
+		var results = GetResults(id);
+		if(results[cid]===undefined) results[cid] = {};
+		results[cid][jid] = data;
+		AddResultToUpload(id,cid,jid,data);
+		localStorage.setItem('results_'+id,json_encode(results));
+		// возможно данные по загрузке результатов
+		// только если совпадает активный id
+		if(id==tour_id) {
+			tour_results = results;
+		}
+	}
+}
+// получить результат к загрузке на сервер из хранилища
+function GetUploadResults() {
+	if(upload_results===undefined) {
+		upload_results = json_decode(localStorage.getItem('upload_results'));
+	}
+	return upload_results;
+}
+// добавить результат к загрузке на сервер
+function AddResultToUpload(id,cid,jid,data) {
+	if(id!==undefined && cid!==undefined && jid!==undefined && data!==undefined) {
+		if(upload_results===undefined) upload_results = {};
+		if(upload_results[id]===undefined) upload_results[id] = {};
+		if(upload_results[id][cid]===undefined) upload_results[id][cid] = {};
+		upload_results[id][cid][jid] = data;
+		localStorage.setItem('upload_results',json_encode(upload_results));
 	}
 }
 // ------------- BATTERY ------------------//
@@ -434,6 +496,7 @@ function json_decode(JSONtext) {
 	return obj;
 }
 function isValidJSON(src) {
+	if(!src) return false;
     var filtered = src;
     filtered = filtered.replace(/\\["\\\/bfnrtu]/g, '@');
     filtered = filtered.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']');
