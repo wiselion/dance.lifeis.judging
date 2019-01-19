@@ -612,8 +612,8 @@ i.lid-icon-favour {width:20px; height:20px; background-image:url(../images/svg/f
 /*
 	JUDGING
 */
-.judging button.button[pair_id][hitstate=new] {background-color:#ccc !important; color:#000 !important;}
-.judging button.button[pair_id][hitstate=yes] {background-color:#4aaa40 !important; color:#fff !important;}
-.judging button.button[pair_id][hitstate=maybe] {background-color:#e5e523 !important; color:#000 !important;}
-.judging button.button[pair_id][hitstate=no] {background-color:#f00 !important; color:#fff !important;}
+.judging .button[pair_id][hitstate=new] {background-color:#ccc !important; color:#000 !important;}
+.judging .button[pair_id][hitstate=yes] {background-color:#4aaa40 !important; color:#fff !important;}
+.judging .button[pair_id][hitstate=maybe] {background-color:#e5e523 !important; color:#000 !important;}
+.judging .button[pair_id][hitstate=no] {background-color:#f00 !important; color:#fff !important;}
 .judging button[disabled] {display:none;}

@@ -157,7 +157,7 @@
 		    break;
 	    }
 	    $$(e.target).attr('hitstate', newstate);
-	    
+
 	    // проверяем счетчик отмеченных
 	    var qty = atab.find('button[pair_id][mark_id][hitstate="yes"]').length;
 	    if(qty!=this.maxpairs) {
@@ -207,7 +207,7 @@
 	    $$(e.target).attr('hitstate', newstate);
 
 	    // проверяем счетчик отмеченных
-	    var qty = atab.find('button[pair_id][hitstate="yes"]').length;
+	    var qty = atab.find('.button[pair_id][hitstate="yes"]').length;
 	    if(qty!=this.maxpairs) {
 		    counter.html(qty).show();
 		    check_tour.hide();
