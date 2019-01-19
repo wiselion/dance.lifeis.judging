@@ -235,6 +235,7 @@ function LoadTourCats(prms) {
 				setTimeout(function(){timeout_in_process=false;LoadTourCats();},app_prms.time_offline);
 			}
 		}
+		app.ptr.done();
 		loadingprocess = false;
 	},'json');
 	return;
@@ -307,6 +308,7 @@ function SelectTour() {
 					SetTourName(tours[this.tour_id.value]);
 					if(PageCatsStatus()) componentCats.$setState({title:GetTourName()});
 					//var cats = GetCats();
+					tour_cats_last = 0;
 					LoadTourCats();
 					popup.close().destroy();
 					app.panel.close('right');

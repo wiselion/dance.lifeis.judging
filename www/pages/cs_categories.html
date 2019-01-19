@@ -64,7 +64,7 @@
       pageInit() {
         var self = this;
         componentCats = this;
-        LoadTourCats({lastid:self.lastid});
+        LoadTourCats(/*{lastid:self.lastid}*/);
         //console.log(self);
         /*// первые несколько блоков
         LoadItemsToInfiniteTape(app_prms.url.data,self.$el.children('.page-content').children('.tape-items'),app_prms.tmpl.tour_cats,undefined,undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
@@ -77,8 +77,9 @@
 			},undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
 		});*/
 		$$('.ptr-content').on('ptr:refresh', function (e) {
+			tour_cats_last = 0;
 			// set online
-			LoadTourCats({lastid:self.lastid,func_before:function(){
+			LoadTourCats({/*lastid:self.lastid,*/func_before:function(){
 			    app.ptr.done();
 			}});
 		});

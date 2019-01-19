@@ -56,7 +56,7 @@
 							{{#each this}}
 							<div class="row padding-bottom">
 								<div class="col-20 pair_number"><button class="col button button-big button-fill color-gray">{{this}}</button></div>
-								<div class="col-80 row no-gap">
+								<div class="col-80 row no-gap justify-content-left">
 								{{#each ../../../marks}}
 									<button @click="setPairSkating" ball_id="{{../../../@key}}" hitstate="new" pair_id="{{../@key}}" mark_id="{{this}}" class="col button button-big button-fill">{{this}}</button>
 								{{/each}}
@@ -128,7 +128,13 @@
 		    self.$app.dialog.alert('Судейство этого танца завершено!');
 		    return;
 	    }
-
+	    
+	    // была ли старая оценка
+	    var oldmark_id = '';
+	    if(atab.find('button[mark_id][pair_id="'+pair_id+'"][hitstate="yes"]').length) {
+		    oldmark_id = atab.find('button[mark_id][pair_id="'+pair_id+'"][hitstate="yes"]').attr("mark_id");
+	    }
+	    
 	    // если нашли пары с такой-же оценкой, то очищаем состояние и показываем
 	    //atab.find('button[mark_id="'+mark_id+'"][hitstate="yes"]:not([pair_id="'+pair_id+'"])').prop("disabled",false).attr('hitstate','new');
 	    if(atab.find('button[mark_id="'+mark_id+'"][hitstate="yes"]:not([pair_id="'+pair_id+'"])').length) {
@@ -146,6 +152,10 @@
 			    atab.find('button[mark_id="'+mark_id+'"]:not([pair_id="'+pair_id+'"])').prop("disabled",true).attr('hitstate','new');
 			    // убираем все остальные оценки этой пары
 			    atab.find('button[pair_id="'+pair_id+'"]:not([mark_id="'+mark_id+'"])').prop("disabled",true).attr('hitstate','new');
+			    // надо открыть эту оценку у других
+			    if(oldmark_id && oldmark_id!=mark_id) {
+				    atab.find('button[mark_id="'+oldmark_id+'"]:not([pair_id="'+pair_id+'"])').prop("disabled",false).attr('hitstate','new');
+			    }
 		    break;
 
 		    case 'yes':
