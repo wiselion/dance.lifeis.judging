@@ -452,6 +452,11 @@ function ObjectFirstKey(obj) {
 	for(var i in obj) return i;
 	return '';
 }
+function GetArrayFromNumber(num) {
+	var r = [];
+	for(var i=1;i<=num;i++) r.push(i);
+	return r;
+}
 
 // ------------- MESSAGES --------------- //
 function LoadMessagesToPage(url,container,f_beforecomplete,f_aftercomplete) {

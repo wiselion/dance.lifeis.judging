@@ -12,7 +12,8 @@
 				</div>
 				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
 				<div class="right">
-					<a @click="saveDance" class="link icon-only">
+					<span id="maxpairs" class="badge color-red">0</span>
+					<a id="check_tour" @click="saveDance" class="link icon-only" style="display:none;">
 						<i class="icon f7-icons ios-only">check</i>
 						<i class="icon material-icons md-only">check</i>
 					</a>
@@ -29,30 +30,45 @@
 		</div>
 
 		<div class="tabs">
+			{{#js_if "../type == 'maxqty'"}}
 			{{#each cat.balls}}
-				<div id="tab-{{@key}}" class="page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
+				<div id="tab-{{@key}}" class="judging page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
 					<div class="block-title">{{../title}}<br/>{{../judge_name}}, {{this}}</div>
 					{{#each ../cat.rondas}}
 						<div class="block-title">Заход {{@key}}</div>
 						<div class="block">
-							<div class="row">
+							<div class="row no-gap">
 							{{#each this}}
-								<button class="col button button-fill color-white text-color-white">{{this}}</button>
+								<button @click="setPair" hitstate="new" pair_id="{{@key}}" class="col button button-fill color-gray">{{this}}</button>
 							{{/each}}
 							</div>
 						</div>
 					{{/each}}
 				</div>
 			{{/each}}
+			{{/js_if}}
+			{{#js_if "../type == 'skating'"}}
+			{{#each cat.balls}}
+				<div id="tab-{{@key}}" class="judging page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
+					<div class="block-title">{{../title}}<br/>{{../judge_name}}, {{this}}</div>
+					{{#each ../cat.rondas}}
+						<div class="block">
+							{{#each this}}
+							<div class="row">
+								<div class="col-20 pair_number"><button class="col button button-fill color-gray">{{this}}</button></div>
+								<div class="col-80 row no-gap">
+								{{#each ../../../marks}}
+									<button @click="setPairSkating" hitstate="new" pair_id="{{../@key}}" mark_id="{{this}}" class="col button button-fill">{{this}}</button>
+								{{/each}}
+								</div>
+							</div>
+							{{/each}}
+						</div>
+					{{/each}}
+				</div>
+			{{/each}}
+			{{/js_if}}
 		</div>
-			<!-- Scrollable page content-->
-			<!--<div class="page-content">
-
-			<div class="block-title">{{title}}<br/>{{judge_name}}</div>
-			<div id="judging" class="fields">
-			</div>
-
-          </div>-->
         </div>
 </template>
 <script>
@@ -66,24 +82,161 @@
         hit_id: this.$route.params.hitId,
         final: this.$route.params.final,
         cat: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final],
+        maxpairs: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].maxpairs, 
+        balls: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls, 
+        type: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].type, 
         first_dance_index: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
         curr_tab: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
+        marks: GetArrayFromNumber(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].maxpairs),
       }
     },
     on: {
       pageInit() {
         var self = this;
-        console.log(this.$route.params);
+        //console.log(this.$route.params);
+        $$('.judging.tab').on('tab:show',function(e){
+		    var atab = $$('.judging.tab-active[id]');
+		    var counter = $$('#maxpairs');
+		    var check_tour = $$('#check_tour');
+		    // проверяем счетчик отмеченных
+		    var qty = atab.find('button[pair_id][hitstate="yes"]').length;
+		    if(qty!=self.maxpairs) {
+			    counter.html(qty).show();
+			    check_tour.hide();
+		    } else {
+			    counter.html(qty).hide();
+			    if(!atab.hasClass('judge-complete')) check_tour.show();
+		    }
+        });
       },
     },
     methods: {
+      setPairSkating: function (e) {
+	    var self = this;
+	    var mark_id = $$(e.target).attr('mark_id');
+	    var pair_id = $$(e.target).attr('pair_id');
+	    var nowstate = $$(e.target).attr('hitstate');
+	    var atab = $$('.judging.tab-active[id]');
+	    var counter = $$('#maxpairs');
+	    var check_tour = $$('#check_tour');
+	    
+	    // не даем на отсуженной вкладке судить
+	    if(atab.hasClass('judge-complete')) {
+		    self.$app.dialog.alert('Судейство этого танца завершено!');
+		    return;
+	    }
+
+	    // если нашли пары с такой-же оценкой, то очищаем состояние и показываем
+	    //atab.find('button[mark_id="'+mark_id+'"][hitstate="yes"]:not([pair_id="'+pair_id+'"])').prop("disabled",false).attr('hitstate','new');
+	    if(atab.find('button[mark_id="'+mark_id+'"][hitstate="yes"]:not([pair_id="'+pair_id+'"])').length) {
+		    atab.find('button[mark_id="'+mark_id+'"][hitstate="yes"]:not([pair_id="'+pair_id+'"])').each(function(n,o){
+			    var pid = $$(o).attr('pair_id');
+			    atab.find('button[mark_id][hitstate][pair_id="'+pid+'"]').prop("disabled",false).attr('hitstate','new');
+		    });
+	    }
+
+	    var newstate = nowstate;
+	    switch(nowstate) {
+		    case 'new':
+		    	newstate = 'yes';
+			    // убираем все оценки у остальных пар
+			    atab.find('button[mark_id="'+mark_id+'"]:not([pair_id="'+pair_id+'"])').prop("disabled",true).attr('hitstate','new');
+			    // убираем все остальные оценки этой пары
+			    atab.find('button[pair_id="'+pair_id+'"]:not([mark_id="'+mark_id+'"])').prop("disabled",true).attr('hitstate','new');
+		    break;
+
+		    case 'yes':
+		    	newstate = 'yes';
+			    // убираем все остальные оценки этой пары
+			    if(atab.find('button[pair_id="'+pair_id+'"]:disabled:not([mark_id="'+mark_id+'"])').length) {
+				    atab.find('button[pair_id="'+pair_id+'"]:disabled:not([mark_id="'+mark_id+'"])').prop("disabled",false);
+			    // показываем все остальные оценки этой пары
+			    } else {
+				    atab.find('button[pair_id="'+pair_id+'"]:disabled:not([mark_id="'+mark_id+'"])').prop("disabled",true).attr('hitstate','new');
+			    }
+		    break;
+	    }
+	    $$(e.target).attr('hitstate', newstate);
+	    
+	    // проверяем счетчик отмеченных
+	    var qty = atab.find('button[pair_id][mark_id][hitstate="yes"]').length;
+	    if(qty!=this.maxpairs) {
+		    counter.html(qty).show();
+		    check_tour.hide();
+	    } else {
+		    counter.html(qty).hide();
+		    check_tour.show();
+	    }
+	  },
+      setPair: function (e) {
+	    var self = this;
+	    //console.log(e);
+	    //console.log(e.target);
+	    //console.log(this);
+	    //self.$app.dialog.alert('Pair id:'+$$(e.target).attr('pair_id'));
+	    //$$(e.target).prop('disabled',true);
+	    var counter = $$('#maxpairs');
+	    var check_tour = $$('#check_tour');
+	    var atab = $$('.judging.tab-active[id]');
+
+	    // не даем на отсуженной вкладке судить
+	    if(atab.hasClass('judge-complete')) {
+		    self.$app.dialog.alert('Судейство этого танца завершено!');
+		    return;
+	    }
+
+	    var nowstate = $$(e.target).attr('hitstate');
+	    var newstate = nowstate;
+	    switch(nowstate) {
+		    case 'new':
+		    	newstate = 'yes';
+		    break;
+
+		    case 'yes':
+		    	newstate = 'maybe';
+		    break;
+
+		    case 'maybe':
+		    	newstate = 'no';
+		    break;
+
+		    case 'no':
+		    	newstate = 'new';
+		    break;
+	    }
+	    $$(e.target).attr('hitstate', newstate);
+
+	    // проверяем счетчик отмеченных
+	    var qty = atab.find('button[pair_id][hitstate="yes"]').length;
+	    if(qty!=this.maxpairs) {
+		    counter.html(qty).show();
+		    check_tour.hide();
+	    } else {
+		    counter.html(qty).hide();
+		    check_tour.show();
+	    }
+	  },
       saveDance: function () {
 	    var self = this;
 	    var cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
 	    console.log(this);
 	    console.log(cat);
+
+	    var atab = $$('.judging.tab-active[id]');
+	    var atab_id = atab.attr("id");
+	    var tmp = atab_id.split('-');
+	    // на какой вкладке находимся
+	    var dance = tmp[1];
+
 	    // check results THEN
-	    var find = false; var new_tab = '';
+
+	    // находим неотсуженные слева направо
+	    delete this.balls[dance];
+		var new_tab = ObjectFirstKey(this.balls);
+		atab.addClass('judge-complete');
+
+	    // способ следующего (даже если не по порядку)
+	    /*var find = false; var new_tab = '';
 	    // find next
 	    for(var i in cat.balls) {
 		    if(find) {
@@ -91,13 +244,14 @@
 			    break;
 			}
 		    if(this.curr_tab==i) find = true;
-	    }
+	    }*/
 	    if(new_tab) {
 		    self.$setState({curr_tab:new_tab});
 		    self.$app.tab.show('#tab-'+new_tab);
 		    console.log("new dance");
 	    } else {
-	        self.$app.dialog.alert('Dance saved!');
+	        self.$app.dialog.alert('Judging complete!');
+	        app.router.navigate('/',{clearPreviousHistory:true});
 	    }
       },
     }

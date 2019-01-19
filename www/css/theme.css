@@ -37,7 +37,8 @@
 }
 .md .tabbar a.tab-link.tab-link-active,
 .md .tabbar-labels a.tab-link.tab-link-active {
-  color: #8d4097;
+  color: #fff;
+  background-color: #8d4097;
 }
 .ios .color-theme-lifeisdance .list-button {
   color: #8d4097;
@@ -608,3 +609,11 @@ i.lid-icon-favour {width:20px; height:20px; background-image:url(../images/svg/f
 .md .icon-back {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'24'%20height%3D'24'%20viewBox%3D'0%200%2024%2024'%3E%3Cpath%20d%3D'M20%2011H7.83l5.59-5.59L12%204l-8%208%208%208%201.41-1.41L7.83%2013H20v-2z'%20fill%3D'%238d4097'%2F%3E%3C%2Fsvg%3E");
 }
+/*
+	JUDGING
+*/
+.judging button.button[pair_id][hitstate=new] {background-color:#ccc !important; color:#000 !important;}
+.judging button.button[pair_id][hitstate=yes] {background-color:#4aaa40 !important; color:#fff !important;}
+.judging button.button[pair_id][hitstate=maybe] {background-color:#e5e523 !important; color:#000 !important;}
+.judging button.button[pair_id][hitstate=no] {background-color:#f00 !important; color:#fff !important;}
+.judging button[disabled] {display:none;}
