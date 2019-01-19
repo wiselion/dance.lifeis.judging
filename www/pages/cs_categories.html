@@ -6,6 +6,7 @@
             <div class="navbar-inner">
 				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
 				<div class="right">
+					<span class="connection-status badge{{#if offline}} color-red{{/if}}">N</span>
 					<a href="#" class="link icon-only panel-open" data-panel="right">
 						<i class="icon f7-icons ios-only">menu</i>
 						<i class="icon material-icons md-only">menu</i>
@@ -54,6 +55,7 @@
         cats: tour_cats,
         lastid: tour_cats_last,
         lng:lang.mess,
+        offline: offline,
         //allowInfinite: true,
         //testval: function(e) {console.log('get new vals in cs_categories');console.log(e); return 'xxx';}
       }

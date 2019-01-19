@@ -6,8 +6,8 @@ var app_data = {};
 var app_prms = {
 	url: {},
 	tmpl: {},
-	time_offline: 60000,
-	time_online: 30000,
+	time_offline: 90000,
+	time_online: 40000,
 };
 var authorize = true;
 var userdata = {};
@@ -29,6 +29,7 @@ var tour_results = {};
 var upload_results = {};
 // идет ли в данный момент процесс загрузки
 var loadingprocess = false;
+var timeout_in_process = false;
 
 // ------------- SYS LIB --------------- //
 String.prototype.printf = function() {
@@ -57,7 +58,7 @@ function InitConnection() {
 	app.request.post(app_prms.url.userdata, {token:token}, (req) => {
 		userdata = req;
 		if(userdata.tournaments!==undefined) SetTournaments(userdata.tournaments);
-		offline = false;
+		offline = false; $$('.connection-status').removeClass('color-red').attr('title','online');
 		InitViews();
 	},
 	(xhr, status) => {
@@ -77,6 +78,8 @@ function SetOfflineMode() {
 // Init/Create views
 function InitViews() {
 	InitBatteryStatus();
+	if(offline) $$('.connection-status').addClass('color-red').attr('title','offline');
+	else $$('.connection-status').removeClass('color-red').attr('title','online');
 	if(homeView===undefined) homeView = app.views.create('#view-home',{url:'/'});
 	/*if(searchView===undefined) searchView = app.views.create('#view-search',{url:'/search/'});
 	if(menuView===undefined) menuView = app.views.create('#view-menu',{url:'/menu/'});
@@ -173,36 +176,63 @@ function LoadTourCats(prms) {
 	console.log('---------------- load cats --------------');
 	if(loadingprocess) return;
 	loadingprocess = true;
+	var token = getToken();
+	if(!token) SetNotAuth();
+
 	if(prms===undefined) var prms = {};
-	// если offline режим просто обновляем данные
-	if(offline || prms.offline) {
+	// если в функцию принудительно отправили offline режим просто обновляем данные
+	if(/*offline ||*/ prms.offline) {
 		componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
 		loadingprocess = false;
 		return;
 	}
 	var f_tour_id = prms.tour_id!==undefined?prms.tour_id:tour_id;
+	// проверяем на результаты незагруженные
+	var results = GetUploadResults();
+	// временно сохраняем в localstorage
+	localStorage.setItem('tmp_upload_results',json_encode(results));
+	upload_results = {};
+
 //	console.log({last:tour_cats_last,tour_id:f_tour_id});
-	app.request.post(app_prms.url.data, {action:'cats',ldate:tour_cats_last,tour_id:f_tour_id,tab_name:tabletName,tab_state:battery}, (reqdata) => {
+	app.request.post(app_prms.url.data, {action:'cats',ldate:tour_cats_last,tour_id:f_tour_id,tab_name:tabletName,tab_state:battery,token:token,results:results}, (reqdata) => {
 		if(reqdata.error!==undefined) {
 			app.dialog.alert('Error: '+reqdata.error);
+			if(results!==undefined) {
+				AddMassResultToUpload(results);
+			}
 		} else {
 			if(prms.func_before!==undefined) prms.func_before();
 			// разбираем данные
 			SetLoadedCats(f_tour_id,reqdata);
 			if(prms.func_after!==undefined) prms.func_after();
 		}
+		localStorage.removeItem('tmp_upload_results');
 		loadingprocess = false;
+		// попытка загрузки данных через определенное время
+		if(!timeout_in_process) {
+			timeout_in_process = true;
+			setTimeout(function(){timeout_in_process=false;LoadTourCats();},app_prms.time_online);
+		}
 	},
 	(xhr, status) => {
 		console.log('error xhr loading');
 		console.log(status);
+		if(results!==undefined) {
+			AddMassResultToUpload(results);
+			localStorage.removeItem('tmp_upload_results');
+		}
 		if(status==401 || status==403) SetNotAuth();
 		else {
 			if(tour_cats_last!==undefined) {
-				offline = true;
+				offline = true; $$('.connection-status').addClass('color-red').attr('title','offline');
 				if(prms.lastid===undefined || (prms.lastid!==undefined && prms.lastid<tour_cats_last)) {
 					componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
 				}
+			}
+			// попытка через определенного времени выйти из offline
+			if(!timeout_in_process) {
+				timeout_in_process = true;
+				setTimeout(function(){timeout_in_process=false;LoadTourCats();},app_prms.time_offline);
 			}
 		}
 		loadingprocess = false;
@@ -221,6 +251,12 @@ function InitTournament() {
 
 	// загружаем пакеты для загрузки из хранилища
 	GetUploadResults();
+	var tmp_results = localStorage.getItem('tmp_upload_results');
+	// если остались пакеты сломавшиеся
+	if(tmp_results) {
+		AddMassResultToUpload(json_decode(tmp_results));
+		localStorage.removeItem('tmp_upload_results');
+	}
 
 	var tours = GetTournaments();
 	//if(ObjectLength(tours)) {
@@ -410,6 +446,21 @@ function GetUploadResults() {
 		upload_results = json_decode(localStorage.getItem('upload_results'));
 	}
 	return upload_results;
+}
+// добавить массовый результат к загрузке на сервер
+function AddMassResultToUpload(data) {
+	if(data!==undefined) {
+		for(var tid in data) {
+			if(upload_results[tid]===undefined) upload_results[tid] = {};
+			for(var cid in data[tid]) {
+				if(upload_results[tid][cid]===undefined) upload_results[tid][cid] = {};
+				for(var jid in data[tid][cid]) {
+					upload_results[tid][cid][jid] = data[tid][cid][jid];
+					localStorage.setItem('upload_results',json_encode(upload_results));
+				}
+			}
+		}
+	}
 }
 // добавить результат к загрузке на сервер
 function AddResultToUpload(id,cid,jid,data) {

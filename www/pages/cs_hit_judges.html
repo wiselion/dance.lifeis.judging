@@ -12,6 +12,7 @@
 				</div>
 				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
 				<div class="right">
+					<span class="connection-status badge{{#if offline}} color-red{{/if}}">N</span>
 					<a href="#" class="link icon-only panel-open" data-panel="right">
 						<i class="icon f7-icons ios-only">menu</i>
 						<i class="icon material-icons md-only">menu</i>
@@ -44,6 +45,7 @@
         hit_id: this.$route.params.hitId,
         final: this.$route.params.final,
         cat: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final],
+        offline: offline,
         //cat: tour_cats[this.$route.params.this.$route.params.],
         /*cats: tour_cats,
         lastid: tour_cats_last,
