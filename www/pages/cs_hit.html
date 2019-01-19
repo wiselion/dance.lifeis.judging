@@ -35,11 +35,11 @@
 				<div id="tab-{{@key}}" class="judging page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
 					<div class="block-title">{{../title}}<br/>{{../judge_name}}, {{this}}</div>
 					{{#each ../cat.rondas}}
-						<div class="block-title">Заход {{@key}}</div>
-						<div class="block">
+						<div class="block-title no-margin-top">Заход {{@key}}</div>
+						<div class="block margin-bottom">
 							<div class="row no-gap">
 							{{#each this}}
-								<button @click="setPair" hitstate="new" pair_id="{{@key}}" class="col button button-fill color-gray">{{this}}</button>
+								<button @click="setPair" hitstate="new" pair_id="{{@key}}" class="col button button-big button-fill color-gray">{{this}}</button>
 							{{/each}}
 							</div>
 						</div>
@@ -54,11 +54,11 @@
 					{{#each ../cat.rondas}}
 						<div class="block">
 							{{#each this}}
-							<div class="row">
-								<div class="col-20 pair_number"><button class="col button button-fill color-gray">{{this}}</button></div>
+							<div class="row padding-bottom">
+								<div class="col-20 pair_number"><button class="col button button-big button-fill color-gray">{{this}}</button></div>
 								<div class="col-80 row no-gap">
 								{{#each ../../../marks}}
-									<button @click="setPairSkating" hitstate="new" pair_id="{{../@key}}" mark_id="{{this}}" class="col button button-fill">{{this}}</button>
+									<button @click="setPairSkating" hitstate="new" pair_id="{{../@key}}" mark_id="{{this}}" class="col button button-big button-fill">{{this}}</button>
 								{{/each}}
 								</div>
 							</div>
