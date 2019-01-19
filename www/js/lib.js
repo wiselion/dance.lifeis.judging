@@ -5,7 +5,9 @@ var app_data = {};
 // application params
 var app_prms = {
 	url: {},
-	tmpl: {}
+	tmpl: {},
+	time_offline: 60000,
+	time_online: 30000,
 };
 var authorize = true;
 var userdata = {};
@@ -25,6 +27,8 @@ var tour_cats_last;
 var componentCats;
 var tour_results = {};
 var upload_results = {};
+// идет ли в данный момент процесс загрузки
+var loadingprocess = false;
 
 // ------------- SYS LIB --------------- //
 String.prototype.printf = function() {
@@ -146,7 +150,7 @@ function SetLoadedCats(f_tour_id,cats) {
 	if(cats!==undefined) {
 		var num = 0; var ldate = tour_cats_last!==undefined ? tour_cats_last : 0;
 		for(var cid in cats) {
-			if(cats[cid].ldate) ldate = Math.max(ldate);
+			if(cats[cid].ldate) ldate = Math.max(ldate,cats[cid].ldate);
 			// обновляем или вставляем элемент
 			if(cats[cid].status) {
 				tour_cats[cid] = cats[cid];
@@ -166,19 +170,28 @@ function SetLoadedCats(f_tour_id,cats) {
 	}
 }
 function LoadTourCats(prms) {
+	console.log('---------------- load cats --------------');
+	if(loadingprocess) return;
+	loadingprocess = true;
 	if(prms===undefined) var prms = {};
 	// если offline режим просто обновляем данные
 	if(offline || prms.offline) {
 		componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
+		loadingprocess = false;
 		return;
 	}
 	var f_tour_id = prms.tour_id!==undefined?prms.tour_id:tour_id;
-	console.log({last:tour_cats_last,tour_id:f_tour_id});
-	app.request.post(app_prms.url.data, {action:'cats',last:tour_cats_last,tour_id:f_tour_id}, (reqdata) => {
-		if(prms.func_before!==undefined) prms.func_before();
-		// разбираем данные
-		SetLoadedCats(f_tour_id,reqdata);
-		if(prms.func_after!==undefined) prms.func_after();
+//	console.log({last:tour_cats_last,tour_id:f_tour_id});
+	app.request.post(app_prms.url.data, {action:'cats',ldate:tour_cats_last,tour_id:f_tour_id,tab_name:tabletName,tab_state:battery}, (reqdata) => {
+		if(reqdata.error!==undefined) {
+			app.dialog.alert('Error: '+reqdata.error);
+		} else {
+			if(prms.func_before!==undefined) prms.func_before();
+			// разбираем данные
+			SetLoadedCats(f_tour_id,reqdata);
+			if(prms.func_after!==undefined) prms.func_after();
+		}
+		loadingprocess = false;
 	},
 	(xhr, status) => {
 		console.log('error xhr loading');
@@ -192,6 +205,7 @@ function LoadTourCats(prms) {
 				}
 			}
 		}
+		loadingprocess = false;
 	},'json');
 	return;
 }

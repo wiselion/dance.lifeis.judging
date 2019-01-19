@@ -75,6 +75,7 @@
 			},undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
 		});*/
 		$$('.ptr-content').on('ptr:refresh', function (e) {
+			// set online
 			LoadTourCats({lastid:self.lastid,func_before:function(){
 			    app.ptr.done();
 			}});
