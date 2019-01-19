@@ -12,6 +12,9 @@
 				</div>
 				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
 				<div class="right">
+					{{#js_if "../type == 'maxqty'"}}
+						<span class="button button-fill color-green margin-right">{{numpairs}} &gt; {{maxpairs}}</span>
+					{{/js_if}}
 					<span id="maxpairs" class="button button-fill color-red margin-right" style="background-color:#f00;">0</span>
 					<a id="check_tour" @click="saveDance" class="link icon-only" style="display:none;">
 						<i class="icon f7-icons ios-only">check</i>
@@ -83,6 +86,7 @@
         final: this.$route.params.final,
         cat: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final],
         maxpairs: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].maxpairs, 
+        numpairs: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].num_pairs, 
         balls: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls, 
         type: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].type, 
         first_dance_index: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
