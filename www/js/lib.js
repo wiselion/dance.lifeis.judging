@@ -94,6 +94,27 @@ function InitAppAfterLogin() {
 	InitConnection();
 	//InitViews();
 }
+// отправка данных категорий
+function DumpResultsData() {
+	var data = localStorage.getItem('results_'+tour_id);
+	if(data!==undefined) {
+		var token = getToken();
+		if(!token) SetNotAuth();
+		app.preloader.show();
+		app.request.post(app_prms.url.data, {dump:data,action:'dump',token:token,tour_id:tour_id,tab_name:tabletName}, (req) => {
+			app.preloader.hide();
+			if(req.status) {
+				app.dialog.alert('Data uploaded successfully!');
+			} else app.dialog.alert(req.error);
+		},
+		(xhr, status) => {
+			app.preloader.hide();
+			app.dialog.alert(lang.login.disconnect);
+		},'json');
+	} else {
+		app.dialog.alert('No results to upload!');
+	}
+}
 function SendAuthRequest(url,data) {
 	app.preloader.show();
 	app.request.post(url, data, (req) => {
