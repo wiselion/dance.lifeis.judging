@@ -42,7 +42,7 @@
 						<div class="block margin-bottom">
 							<div class="row no-gap">
 							{{#each this}}
-								<button @click="setPair" ball_id="{{../../@key}}" hitstate="new" pair_id="{{@key}}" class="col button button-big button-fill color-gray">{{this}}</button>
+								<button @click="setPair" ball_id="{{../../@key}}" hitstate="new" pair_id="{{this.id}}" class="col button button-big button-fill color-gray">{{this.number}}</button>
 							{{/each}}
 							</div>
 						</div>
@@ -58,10 +58,10 @@
 						<div class="block">
 							{{#each this}}
 							<div class="row padding-bottom">
-								<div class="col-20 pair_number"><button class="col button button-big button-fill color-gray">{{this}}</button></div>
+								<div class="col-20 pair_number"><button class="col button button-big button-fill color-gray">{{number}}</button></div>
 								<div class="col-80 row no-gap justify-content-left">
 								{{#each ../../../marks}}
-									<button @click="setPairSkating" ball_id="{{../../../@key}}" hitstate="new" pair_id="{{../@key}}" mark_id="{{this}}" class="col button button-big button-fill">{{this}}</button>
+									<button @click="setPairSkating" ball_id="{{../../../@key}}" hitstate="new" pair_id="{{../id}}" mark_id="{{this}}" class="col button button-big button-fill">{{this}}</button>
 								{{/each}}
 								</div>
 							</div>
