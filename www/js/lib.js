@@ -6,8 +6,8 @@ var app_data = {};
 var app_prms = {
 	url: {},
 	tmpl: {},
-	time_offline: 90000,
-	time_online: 40000,
+	time_offline: 30000,
+	time_online: 10000,
 };
 var authorize = true;
 var userdata = {};
@@ -186,8 +186,8 @@ function LoadTourCats(prms) {
 	if(prms===undefined) var prms = {};
 	// если в функцию принудительно отправили offline режим просто обновляем данные
 	if(/*offline ||*/ prms.offline) {
-		componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
 		loadingprocess = false;
+		if(PageCatsStatus()) componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
 		return;
 	}
 	var f_tour_id = prms.tour_id!==undefined?prms.tour_id:tour_id;
@@ -209,9 +209,11 @@ function LoadTourCats(prms) {
 			// разбираем данные
 			SetLoadedCats(f_tour_id,reqdata);
 			if(prms.func_after!==undefined) prms.func_after();
+			$$('.connection-status').removeClass('color-red').attr('title','online');
 		}
 		localStorage.removeItem('tmp_upload_results');
 		loadingprocess = false;
+		app.ptr.done();
 		// попытка загрузки данных через определенное время
 		if(!timeout_in_process) {
 			timeout_in_process = true;
@@ -227,12 +229,17 @@ function LoadTourCats(prms) {
 		}
 		if(status==401 || status==403) SetNotAuth();
 		else {
-			if(tour_cats_last!==undefined) {
-				offline = true; $$('.connection-status').addClass('color-red').attr('title','offline');
-				if(prms.lastid===undefined || (prms.lastid!==undefined && prms.lastid<tour_cats_last)) {
-					componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
-				}
+			if(ObjectLength(tour_cats)<1 && tour_id!==undefined) {
+				var newcats = GetCats(tour_id);
+				if(PageCatsStatus() && ObjectLength(newcats)) componentCats.$setState({cats:newcats,lastid:tour_cats_last});
 			}
+			//if(PageCatsStatus()) componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
+			/*if(tour_cats_last!==undefined) {
+				if(prms.lastid===undefined || (prms.lastid!==undefined && prms.lastid<tour_cats_last)) {
+					if(PageCatsStatus()) componentCats.$setState({cats:GetCats(tour_id),lastid:tour_cats_last});
+				}
+			}*/
+			offline = true; $$('.connection-status').addClass('color-red').attr('title','offline');
 			// попытка через определенного времени выйти из offline
 			if(!timeout_in_process) {
 				timeout_in_process = true;
