@@ -6,8 +6,8 @@ var app_data = {};
 var app_prms = {
 	url: {},
 	tmpl: {},
-	time_offline: 30000,
-	time_online: 10000,
+	time_offline: 90000,
+	time_online: 30000,
 };
 var authorize = true;
 var userdata = {};

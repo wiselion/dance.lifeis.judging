@@ -40,7 +40,7 @@
 					{{#each ../cat.rondas}}
 						<div class="block-title no-margin-top">Заход {{@key}}</div>
 						<div class="block margin-bottom">
-							<div class="row no-gap">
+							<div class="row no-gap justify-content-left">
 							{{#each this}}
 								<button @click="setPair" ball_id="{{../../@key}}" hitstate="new" pair_id="{{this.id}}" class="col button button-big button-fill color-gray">{{this.number}}</button>
 							{{/each}}
