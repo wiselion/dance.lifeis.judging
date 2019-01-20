@@ -160,13 +160,17 @@ function SetLoadedCats(f_tour_id,cats) {
 				num++;
 			// удаляем готовый, если не есть
 			} else {
-				if(tour_cats[cid]) {
+				//console.log('try err');
+				//console.log(tour_cats);
+				//console.log(cid);
+				if(tour_cats[cid]!==undefined) {
 					delete tour_cats[cid];
 					num++;
 				}
 			}
 		}
 		if(num) {
+			tour_cats = SortObjectFunc(tour_cats,function(a,b){if(a[1].ts<b[1].ts) return -1; if(a[1].ts>b[1].ts) return 1; return 0;});
 			SetCats(f_tour_id,tour_cats,ldate);
 			//if(f_tour_id==tour_id) componentCats.$setState({cats:tour_cats,lastid:tour_cats_last});
 		}
@@ -586,6 +590,19 @@ function GetArrayFromNumber(num) {
 	var r = [];
 	for(var i=1;i<=num;i++) r.push(i);
 	return r;
+}
+function SortObjectFunc(o,func) {
+	var new_o = {};
+	if(o!==undefined && func!==undefined) {
+		var sortable = [];
+		for(var i in o) sortable.push([i, o[i]]);
+		//console.log(sortable);
+		sortable.sort(func);
+		for(var i in sortable) new_o[sortable[i][0]] = sortable[i][1];
+		//console.log(new_o);
+		//console.log(sortable);
+	}
+	return new_o;
 }
 
 // ------------- MESSAGES --------------- //
