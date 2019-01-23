@@ -29,7 +29,7 @@
 			<div class="tape-items">
 				<div class="list links-list"><ul>
 				{{#each cat.judges}}
-					<li><a @click="checkPin({{../hit_id}},{{../final}},{{@key}})">{{this}}{{JudgeCompleteStatus @key ../res}}</a></li>
+					<li><a @click="checkPin({{../hit_id}},{{../final}},{{@key}})">{{this}}{{JudgeLogStatus ../hit_id ../final @key}}{{JudgeCompleteStatus @key ../res}}</a></li>
 				{{/each}}
 				</ul></div>
 			</div>

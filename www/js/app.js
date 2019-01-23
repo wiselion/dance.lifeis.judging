@@ -76,6 +76,7 @@ InitGlobalPreferredLanguage();
 Template7.registerHelper('FormatUTDate',FormatUTDate);
 Template7.registerHelper('CatCompleteStatus',CatCompleteStatus);
 Template7.registerHelper('JudgeCompleteStatus',JudgeCompleteStatus);
+Template7.registerHelper('JudgeLogStatus',JudgeLogStatus);
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {

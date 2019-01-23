@@ -662,6 +662,18 @@ function JudgeCompleteStatus(key, obj) {
 		return '';
 	}
 }
+function JudgeLogStatus(hid,fid,jid) {
+	var st = false;
+	if(results_log!==undefined && hid!==undefined && fid!==undefined && jid!==undefined)
+		if(results_log[hid+'-'+fid]!==undefined)
+			if(results_log[hid+'-'+fid][jid]!==undefined)
+				st = true;
+	if(st) {
+		return ' <span class="badge color-red">D</span> ';
+	} else {
+		return '';
+	}
+}
 function CatCompleteStatus(key) {
 	var st = false;
 	if(tour_results!==undefined && key!==undefined) if(tour_results[key]!==undefined) st=true;
