@@ -172,6 +172,8 @@ function SetLoadedCats(f_tour_id,cats) {
 		GetCats()
 	}*/
 	if(cats!==undefined) {
+		// очищаем, если загружали не дельту
+		if(!tour_cats_last) tour_cats = {};
 		var num = 0; var ldate = tour_cats_last!==undefined ? tour_cats_last : 0;
 		for(var cid in cats) {
 			if(cats[cid].ldate) ldate = Math.max(ldate,cats[cid].ldate);
@@ -179,7 +181,7 @@ function SetLoadedCats(f_tour_id,cats) {
 			if(cats[cid].status) {
 				tour_cats[cid] = cats[cid];
 				num++;
-			// удаляем готовый, если не есть
+			// удаляем готовый, если нету
 			} else {
 				//console.log('try err');
 				//console.log(tour_cats);
