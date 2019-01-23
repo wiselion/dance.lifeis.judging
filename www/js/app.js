@@ -74,6 +74,7 @@ InitGlobalPreferredLanguage();
 
 // функции шаблона
 Template7.registerHelper('FormatUTDate',FormatUTDate);
+Template7.registerHelper('JudgeCompleteStatus',JudgeCompleteStatus);
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {

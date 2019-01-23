@@ -612,6 +612,7 @@ i.lid-icon-favour {width:20px; height:20px; background-image:url(../images/svg/f
 /*
 	JUDGING
 */
+.tablet-name {}
 #check_tour i {font-size:36px !important; color:#46aa39;}
 .judging .button[pair_id][hitstate] {font-size:20px;}
 .judging .button[pair_id][hitstate=new] {background-color:#ccc !important; color:#000 !important;}

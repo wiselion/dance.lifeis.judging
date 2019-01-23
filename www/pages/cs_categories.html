@@ -6,7 +6,8 @@
             <div class="navbar-inner">
 				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
 				<div class="right">
-					<span class="connection-status badge{{#if offline}} color-red{{/if}}">N</span>
+					<span class="tablet-name margin-right">{{tabname}}</span>
+					<span class="connection-status badge{{#if offline}} color-red{{/if}}"><i class="material-icons">wifi</i></span>
 					<a href="#" class="link icon-only panel-open" data-panel="right">
 						<i class="icon f7-icons ios-only">menu</i>
 						<i class="icon material-icons md-only">menu</i>
@@ -17,7 +18,7 @@
 
 			<!-- Scrollable page content-->
 			<div class="page-content ptr-content" data-infinite-distance="500">
-			
+
 			<div class="ptr-preloader">
 				<div class="preloader"></div>
 				<div class="ptr-arrow"></div>
@@ -50,14 +51,12 @@
   return {
     data() {
       return {
-        // empty initial user data
         title: tour_name,
         cats: tour_cats,
         lastid: tour_cats_last,
         lng:lang.mess,
         offline: offline,
-        //allowInfinite: true,
-        //testval: function(e) {console.log('get new vals in cs_categories');console.log(e); return 'xxx';}
+        tabname: tabletName
       }
     },
     on: {
@@ -65,17 +64,6 @@
         var self = this;
         componentCats = this;
         LoadTourCats(/*{lastid:self.lastid}*/);
-        //console.log(self);
-        /*// первые несколько блоков
-        LoadItemsToInfiniteTape(app_prms.url.data,self.$el.children('.page-content').children('.tape-items'),app_prms.tmpl.tour_cats,undefined,undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
-		// перезагрузка ленты, если потянуть страницу вниз
-		$$('.ptr-content').on('ptr:refresh', function (e) {
-			var tape_el = $$(this).children('.tape-items');
-			LoadItemsToInfiniteTape(app_prms.url.data,tape_el,app_prms.tmpl.tour_cats,function(){
-				tape_el.children().remove();
-			    app.ptr.done();
-			},undefined,{action:'cats',last:self.lastid,tour_id:tour_id});
-		});*/
 		$$('.ptr-content').on('ptr:refresh', function (e) {
 			tour_cats_last = 0;
 			// set online

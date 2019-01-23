@@ -237,8 +237,6 @@
       saveDance: function () {
 	    var self = this;
 	    var cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
-	    //console.log(this);
-	    //console.log(cat);
 
 	    var atab = $$('.judging.tab-active[id]');
 	    var atab_id = atab.attr("id");
@@ -255,16 +253,6 @@
 		var new_tab = ObjectFirstKey(this.balls);
 		atab.addClass('judge-complete');
 
-	    // способ следующего (даже если не по порядку)
-	    /*var find = false; var new_tab = '';
-	    // find next
-	    for(var i in cat.balls) {
-		    if(find) {
-			    new_tab = i;
-			    break;
-			}
-		    if(this.curr_tab==i) find = true;
-	    }*/
 	    if(new_tab) {
 		    self.$setState({curr_tab:new_tab});
 		    self.$app.tab.show('#tab-'+new_tab);
@@ -281,7 +269,6 @@
 				    rdata[ball_id][pair_id] = mark_id;
 			    }
 		    });
-		    //console.log(rdata);
 		    // записываем результаты
 		    SetResults(tour_id,this.$route.params.hitId+'-'+this.$route.params.final,this.$route.params.judgeId,rdata);
 		    // завершаем

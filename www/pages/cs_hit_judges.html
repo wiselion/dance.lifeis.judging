@@ -12,7 +12,8 @@
 				</div>
 				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
 				<div class="right">
-					<span class="connection-status badge{{#if offline}} color-red{{/if}}">N</span>
+					<span class="tablet-name margin-right">{{tabname}}</span>
+					<span class="connection-status badge{{#if offline}} color-red{{/if}}"><i class="material-icons">wifi</i></span>
 					<a href="#" class="link icon-only panel-open" data-panel="right">
 						<i class="icon f7-icons ios-only">menu</i>
 						<i class="icon material-icons md-only">menu</i>
@@ -28,7 +29,7 @@
 			<div class="tape-items">
 				<div class="list links-list"><ul>
 				{{#each cat.judges}}
-					<li><a @click="checkPin({{../hit_id}},{{../final}},{{@key}})">{{this}}</a></li>
+					<li><a @click="checkPin({{../hit_id}},{{../final}},{{@key}})">{{this}}{{JudgeCompleteStatus @key ../res}}</a></li>
 				{{/each}}
 				</ul></div>
 			</div>
@@ -39,20 +40,20 @@
 <script>
   return {
     data() {
-      return {
-        // empty initial user data
-        title: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].title+'<br/>'+tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].final_type+'<br/>'+tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].desc,
-        hit_id: this.$route.params.hitId,
-        final: this.$route.params.final,
-        cat: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final],
-        offline: offline,
-        //cat: tour_cats[this.$route.params.this.$route.params.],
-        /*cats: tour_cats,
-        lastid: tour_cats_last,
-        lng:lang.mess,*/
-        //allowInfinite: true,
-        //testval: function(e) {console.log('get new vals in cs_categories');console.log(e); return 'xxx';}
-      }
+		var cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
+		var res = tour_results!==undefined && tour_results[this.$route.params.hitId+'-'+this.$route.params.final]!==undefined ? tour_results[this.$route.params.hitId+'-'+this.$route.params.final] : {};
+		var res_status = [];
+		for(var i in cat.judges) res_status[i] = res[i]!==undefined ? true : false;
+		return {
+			title: cat.title+'<br/>'+cat.final_type+'<br/>'+cat.desc,
+			hit_id: this.$route.params.hitId,
+			final: this.$route.params.final,
+			cat: cat,
+			offline: offline,
+			tabname: tabletName,
+			res: res,
+			res_status: res_status
+		}
     },
     /*on: {
       pageInit() {

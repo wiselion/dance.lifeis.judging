@@ -298,10 +298,9 @@ function InitTournament() {
 	if(!GetTourId() || !GetTourName()) {
 		SelectTour();
 	} else {
-		//app.dialog.alert('Нет доступных чемпионатов!');
 		// start tour
+		var res = GetResults(tour_id);
 	}
-	//if(!GetTabletName()) app.dialog.confirm('Необходимо задать имя для планшета', function(name){if(name) SetTabletName(name) else InitTournament();});
 }
 // open set tablet name
 function SelectTabletName() {
@@ -343,6 +342,7 @@ function SelectTour() {
 					if(PageCatsStatus()) componentCats.$setState({title:GetTourName()});
 					//var cats = GetCats();
 					tour_cats_last = 0;
+					var res = GetResults(this.tour_id.value);
 					LoadTourCats();
 					popup.close().destroy();
 					app.panel.close('right');
@@ -508,6 +508,19 @@ function AddResultToUpload(id,cid,jid,data) {
 		localStorage.setItem('upload_results',json_encode(upload_results));
 	}
 }
+function ClearLocalData() {
+	app.dialog.confirm(
+		'Вы уверены, что хотите очистить локальное хранилище? Это приведет к полной потере данных приложения',
+		'Очистка хранилища',
+		function(){
+			localStorage.clear();
+			tour_id = 0;
+			tour_results = {};
+			tour_cats = {};
+			tour_name = '';
+			InitTournament();
+		});
+}
 // ------------- BATTERY ------------------//
 function InitBatteryStatus() {
 	navigator.getBattery().then(function(bat) {
@@ -616,6 +629,12 @@ function ObjectFirstKey(obj) {
 	for(var i in obj) return i;
 	return '';
 }
+function CheckKeyInObject(key,obj) {
+	console.log(key);
+	console.log(obj);
+	if(key!==undefined && obj!==undefined) return obj[key]!==undefined ? true : false;
+	return false;
+}
 function GetArrayFromNumber(num) {
 	var r = [];
 	for(var i=1;i<=num;i++) r.push(i);
@@ -633,6 +652,14 @@ function SortObjectFunc(o,func) {
 		//console.log(sortable);
 	}
 	return new_o;
+}
+// -------------- Template7 helpers -------------- //
+function JudgeCompleteStatus(key, obj) {
+	if(CheckKeyInObject(key, obj)) {
+		return ' <span class="badge color-green"><i class="material-icons">check_circle</i></span>';
+	} else {
+		return '';
+	}
 }
 // -------------- DATE & TIME ----------------- //
 function FormatUTDate(date) {
