@@ -27,6 +27,8 @@ var tour_cats_last;
 var componentCats;
 var tour_results = {};
 var upload_results = {};
+// пишем сюда все действия по подсчету судьи
+var results_log = {};
 // идет ли в данный момент процесс загрузки
 var loadingprocess = false;
 var timeout_in_process = false;
@@ -630,8 +632,6 @@ function ObjectFirstKey(obj) {
 	return '';
 }
 function CheckKeyInObject(key,obj) {
-	console.log(key);
-	console.log(obj);
 	if(key!==undefined && obj!==undefined) return obj[key]!==undefined ? true : false;
 	return false;
 }
@@ -653,10 +653,20 @@ function SortObjectFunc(o,func) {
 	}
 	return new_o;
 }
+function isNumber(n) {return /^-?[\d.]+(?:e-?\d+)?$/.test(n);}
 // -------------- Template7 helpers -------------- //
 function JudgeCompleteStatus(key, obj) {
 	if(CheckKeyInObject(key, obj)) {
 		return ' <span class="badge color-green"><i class="material-icons">check_circle</i></span>';
+	} else {
+		return '';
+	}
+}
+function CatCompleteStatus(key) {
+	var st = false;
+	if(tour_results!==undefined && key!==undefined) if(tour_results[key]!==undefined) st=true;
+	if(st) {
+		return ' <span class="badge color-green">C</span> ';
 	} else {
 		return '';
 	}

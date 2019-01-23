@@ -98,7 +98,7 @@
     on: {
       pageInit() {
         var self = this;
-        //console.log(this.$route.params);
+        // при переключении на определенную вкладку
         $$('.judging.tab').on('tab:show',function(e){
 		    var atab = $$('.judging.tab-active[id]');
 		    var counter = $$('#maxpairs');
@@ -113,11 +113,93 @@
 			    if(!atab.hasClass('judge-complete')) check_tour.show();
 		    }
         });
+
+        // если есть данные судейства
+        var catind = this.$route.params.hitId+'-'+this.$route.params.final;
+        if(results_log[catind]!==undefined) {
+        	if(results_log[catind][this.$route.params.judgeId]!==undefined) {
+	        	// на всякий случай создаем копию
+	        	var res = results_log[catind][this.$route.params.judgeId];
+	        	// назначаем кнопкам статусы
+	        	for(var d in res) {
+		        	for(var pid in res[d]) {
+			        	if(isNumber(res[d][pid])) {
+				        	//$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][mark_id="'+res[d][pid]+'"][hitstate]').trigger('click');
+				        	$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][mark_id="'+res[d][pid]+'"][hitstate]').attr('hitstate','yes');
+			        	} else {
+				        	$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][hitstate]').attr('hitstate',res[d][pid]);
+			        	}
+		        	}
+	        	}
+        	}
+        }
+
+        // инициализация для разного типа
+	    var atab = $$('.judging.tab-active[id]');
+	    var counter = $$('#maxpairs');
+	    var check_tour = $$('#check_tour');
+        switch(this.type) {
+	        case 'maxqty':
+			    // проверяем счетчик отмеченных
+			    var qty = atab.find('.button[pair_id][hitstate="yes"]').length;
+			    if(qty!=this.maxpairs) {
+				    counter.html(qty).show();
+				    check_tour.hide();
+			    } else {
+				    counter.html(qty).hide();
+				    check_tour.show();
+			    }
+	        break;
+
+	        case 'skating':
+			    // проверяем счетчик отмеченных
+			    var qty = atab.find('button[pair_id][mark_id][hitstate="yes"]').length;
+			    if(qty!=this.maxpairs) {
+				    counter.html(qty).show();
+				    check_tour.hide();
+			    } else {
+				    counter.html(qty).hide();
+				    check_tour.show();
+			    }
+	        break;
+        }
       },
     },
     methods: {
       backToJudges: function(e) {
 	      app.dialog.confirm('Вы уверены, что хотите вернуться к списку судей? Все данные не сохранятся', 'Вернуться к судьям?', function(e){app.router.back();}, function(){});
+      },
+      logState: function(type) {
+		// собираем результаты
+		var rdata = {};
+		switch(type) {
+			case 'maxqty':
+				$$('.judging.tab .button[pair_id][hitstate]').each(function(n,o){
+				    var pair_id = $$(o).attr("pair_id");
+				    var hitstate = $$(o).attr("hitstate");
+				    var ball_id = $$(o).attr("ball_id");
+				    if(pair_id!==undefined && ball_id!==undefined && hitstate!==undefined && hitstate!='new') {
+					    if(rdata[ball_id]===undefined) rdata[ball_id] = {};
+						rdata[ball_id][pair_id] = hitstate;
+				    }
+				});
+			break;
+
+			case 'skating':
+				$$('.judging.tab .button[pair_id][mark_id][hitstate="yes"]').each(function(n,o){
+				    var pair_id = $$(o).attr("pair_id");
+				    var hitstate = $$(o).attr("hitstate");
+				    var ball_id = $$(o).attr("ball_id");
+				    var mark_id = $$(o).attr("mark_id");
+				    if(pair_id!==undefined && ball_id!==undefined && mark_id!==undefined) {
+					    if(rdata[ball_id]===undefined) rdata[ball_id] = {};
+						rdata[ball_id][pair_id] = mark_id;
+				    }
+				});
+			break;
+		}
+		if(results_log[this.$route.params.hitId+'-'+this.$route.params.final]===undefined) results_log[this.$route.params.hitId+'-'+this.$route.params.final] = {};
+		results_log[this.$route.params.hitId+'-'+this.$route.params.final][this.$route.params.judgeId] = rdata;
       },
       setPairSkating: function (e) {
 	    var self = this;
@@ -185,18 +267,15 @@
 		    counter.html(qty).hide();
 		    check_tour.show();
 	    }
+	    // логируем действия
+	    this.logState('skating');
 	  },
       setPair: function (e) {
 	    var self = this;
-	    //console.log(e);
-	    //console.log(e.target);
-	    //console.log(this);
-	    //self.$app.dialog.alert('Pair id:'+$$(e.target).attr('pair_id'));
-	    //$$(e.target).prop('disabled',true);
 	    var counter = $$('#maxpairs');
 	    var check_tour = $$('#check_tour');
 	    var atab = $$('.judging.tab-active[id]');
-
+	    
 	    // не даем на отсуженной вкладке судить
 	    if(atab.hasClass('judge-complete')) {
 		    self.$app.dialog.alert('Судейство этого танца завершено!');
@@ -233,6 +312,8 @@
 		    counter.html(qty).hide();
 		    check_tour.show();
 	    }
+	    // логируем действия
+	    this.logState('maxqty');
 	  },
       saveDance: function () {
 	    var self = this;
@@ -256,7 +337,6 @@
 	    if(new_tab) {
 		    self.$setState({curr_tab:new_tab});
 		    self.$app.tab.show('#tab-'+new_tab);
-		    //console.log("new dance");
 	    } else {
 		    // собираем результаты
 		    var rdata = {};
