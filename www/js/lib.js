@@ -634,6 +634,22 @@ function SortObjectFunc(o,func) {
 	}
 	return new_o;
 }
+// -------------- DATE & TIME ----------------- //
+function FormatUTDate(date) {
+	return FormatDate(date*1000);
+}
+function FormatDate(date) {
+    var months = ('January February March April May June July August September October November December').split(' ');
+    var _date = new Date(date);
+    var month = months[_date.getMonth()];
+    var day = _date.getDate();
+    var year = _date.getFullYear();
+    var h = _date.getHours();
+    h = h < 10 ? '0' + h : h;
+    var m = _date.getMinutes();
+    m = m < 10 ? '0' + m : m;
+    return month + ' ' + day + ', ' + year + ' ' + h + ':' + m;
+}
 
 // ------------- MESSAGES --------------- //
 function LoadMessagesToPage(url,container,f_beforecomplete,f_aftercomplete) {

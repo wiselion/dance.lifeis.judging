@@ -72,6 +72,9 @@ $$('#login-form').on('submit',function(e){
 app.preloader.show();
 InitGlobalPreferredLanguage();
 
+// функции шаблона
+Template7.registerHelper('FormatUTDate',FormatUTDate);
+
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	StatusBar.styleDefault();

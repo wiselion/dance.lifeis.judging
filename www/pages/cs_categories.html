@@ -23,7 +23,7 @@
 				<div class="ptr-arrow"></div>
 			</div>
 			
-			<div class="block-title">{{title}}</div>
+			<div class="block-title"><strong>{{title}}</strong><br/>Обновлено: {{#if lastid}}{{FormatUTDate lastid}}{{else}}никогда{{/if}}</div>
 			<div class="tape-items">
 				<div class="list media-list chevron-center"><ul>
 				{{#each cats}}
