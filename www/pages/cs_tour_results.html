@@ -1,0 +1,105 @@
+<template>
+        <!-- Page, data-name contains page name which can be used in page callbacks -->
+        <div class="page" data-name="tour_results">
+          <!-- Top Navbar -->
+          <div class="navbar">
+            <div class="navbar-inner">
+				<div class="left">
+					<a href="#" class="link back">
+						<i class="icon icon-back"></i>
+						<span class="ios-only">Back</span>
+					</a>
+				</div>
+				<div class="title sliding" style="padding-top:3px;"><img src="images/svg/logo.svg" style="height:34px; width:120px;"></div>
+				<div class="right">
+					<span class="tablet-name margin-right">{{tabname}}</span>
+					<span class="connection-status badge{{#if offline}} color-red{{/if}}"><i class="material-icons">wifi</i></span>
+					<a href="#" class="link icon-only panel-open" data-panel="right">
+						<i class="icon f7-icons ios-only">menu</i>
+						<i class="icon material-icons md-only">menu</i>
+					</a>
+				</div>
+            </div>
+          </div>
+
+			<!-- Scrollable page content-->
+			<div class="page-content">
+			
+			<div class="block-title">{{title}}</div>
+			<div class="tape-items">
+				<div class="list media-list chevron-center"><ul>
+				{{#each cats}}
+					{{#each this}}
+						<li><a href="#" class="item-link item-content">
+							<div class="item-inner">
+								<div class="item-title-row">
+									<div class="item-title">{{this.title}}</div>
+									<div class="item-after">{{this.time}}</div>
+								</div>
+								<div class="item-subtitle">{{this.final_type}}</div>
+								<div class="item-text">{{this.judge}}</div>
+							</div>
+						</a></li>
+					{{/each}}
+				{{/each}}
+				</ul></div>
+			</div>
+
+          </div>
+        </div>
+</template>
+<script>
+  return {
+    data() {
+		var res = GetResults(tour_id);
+		var cats = {};
+		for(var cat_id in res) {
+			if(tour_cats[cat_id]!==undefined) {
+				cats[cat_id] = {};
+				for(var j_id in res[cat_id]) {
+					cats[cat_id][j_id] = {
+						title: tour_cats[cat_id].title,
+						time: tour_cats[cat_id].time,
+						final_type: tour_cats[cat_id].final_type,
+						desc: tour_cats[cat_id].desc,
+						judge: tour_cats[cat_id].judges[j_id],
+					}
+				}
+			}
+		}
+		/*var cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
+		var res = tour_results!==undefined && tour_results[this.$route.params.hitId+'-'+this.$route.params.final]!==undefined ? tour_results[this.$route.params.hitId+'-'+this.$route.params.final] : {};
+		var res_status = [];
+		for(var i in cat.judges) res_status[i] = res[i]!==undefined ? true : false;*/
+		return {
+			offline: offline,
+			tabname: tabletName,
+			cats: cats,
+			title: 'Results info'
+		}
+    },
+    /*on: {
+      pageInit() {
+        var self = this;
+        console.log(this.$route.params);
+      },
+    },*/
+    methods: {
+	    /*checkPin(hid,fin,jid) {
+		    var jpin = '';
+		    if(this.cat.judges_pins!==undefined) if(this.cat.judges_pins[jid]!==undefined) jpin = this.cat.judges_pins[jid];
+			if(jpin) app.dialog.prompt('Введите Ваш ПИН код',this.cat.judges[jid],function(pin){
+				if(pin==jpin) app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
+				else var toastCenter = app.toast.create({
+					text: 'Неверный ПИН код!',
+					position: 'center',
+					closeTimeout: 2000,
+				}).open();});
+			else app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
+	    },
+      saveDance: function () {
+        $app.dialog.alert('Dance saved!');
+      },*/
+    }
+  };
+</script>

@@ -32,6 +32,10 @@ routes = [
     path: '/hit/:hitId/:final/:judgeId/',
     componentUrl: './pages/cs_hit.html',
   },
+  {
+    path: '/results/',
+    componentUrl: './pages/cs_tour_results.html',
+  },
 
   /*{
     path: '/',

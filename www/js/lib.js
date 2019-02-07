@@ -188,17 +188,20 @@ function SetLoadedCats(f_tour_id,cats) {
 				//console.log('try err');
 				//console.log(tour_cats);
 				//console.log(cid);
-				if(tour_cats[cid]!==undefined) {
+				tour_cats[cid] = cats[cid];
+				num++;
+				// временно переназначаем отсуженные категории
+				/*if(tour_cats[cid]!==undefined) {
 					delete tour_cats[cid];
 					num++;
-				}
+				}*/
 			}
 		}
-		if(num) {
+		//if(num) {
 			tour_cats = SortObjectFunc(tour_cats,function(a,b){if(a[1].ts<b[1].ts) return -1; if(a[1].ts>b[1].ts) return 1; return 0;});
 			SetCats(f_tour_id,tour_cats,ldate);
 			//if(f_tour_id==tour_id) componentCats.$setState({cats:tour_cats,lastid:tour_cats_last});
-		}
+		//}
 	}
 }
 function LoadTourCats(prms) {
