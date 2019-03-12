@@ -66,14 +66,22 @@
 	    checkPin(hid,fin,jid) {
 		    var jpin = '';
 		    if(this.cat.judges_pins!==undefined) if(this.cat.judges_pins[jid]!==undefined) jpin = this.cat.judges_pins[jid];
-			if(jpin) app.dialog.prompt('Введите Ваш ПИН код',this.cat.judges[jid],function(pin){
-				if(pin==jpin || pin=='mytestpin') app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
-				else var toastCenter = app.toast.create({
-					text: 'Неверный ПИН код!',
+		    if(this.res[jid]!==undefined) {
+				var toastCenter = app.toast.create({
+					text: 'По данному судье есть результаты!',
 					position: 'center',
-					closeTimeout: 2000,
-				}).open();});
-			else app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
+					closeTimeout: 1500,
+				}).open();
+		    } else {
+				if(jpin) app.dialog.prompt('Введите Ваш ПИН код',this.cat.judges[jid],function(pin){
+					if(pin==jpin || pin=='mytestpin') app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
+					else var toastCenter = app.toast.create({
+						text: 'Неверный ПИН код!',
+						position: 'center',
+						closeTimeout: 2000,
+					}).open();});
+				else app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
+			}
 	    },
       saveDance: function () {
         $app.dialog.alert('Dance saved!');
