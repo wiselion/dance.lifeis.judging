@@ -205,7 +205,7 @@ function SetLoadedCats(f_tour_id,cats) {
 	}
 }
 function LoadTourCats(prms) {
-	console.log('---------------- load cats --------------');
+	//console.log('---------------- load cats --------------');
 	if(loadingprocess) return;
 	loadingprocess = true;
 	var token = getToken();
@@ -220,26 +220,32 @@ function LoadTourCats(prms) {
 	}
 	var f_tour_id = prms.tour_id!==undefined?prms.tour_id:tour_id;
 	// проверяем на результаты незагруженные
-	var results = GetUploadResults();
+	// :TEST NEW UPLOAD: //var results = GetUploadResults();
 	// временно сохраняем в localstorage
-	localStorage.setItem('tmp_upload_results',json_encode(results));
-	upload_results = {};
+	// :TEST NEW UPLOAD: //localStorage.setItem('tmp_upload_results',json_encode(results));
+	// :TEST NEW UPLOAD: //upload_results = {};
 
 //	console.log({last:tour_cats_last,tour_id:f_tour_id});
-	app.request.post(app_prms.url.data, {action:'cats',ldate:tour_cats_last,tour_id:f_tour_id,tab_name:tabletName,tab_state:battery,token:token,results:results}, (reqdata) => {
+	app.request.post(app_prms.url.data, {action:'cats',ldate:tour_cats_last,tour_id:f_tour_id,tab_name:tabletName,tab_state:battery,token:token,results:GetUploadResults()}, (reqdata) => {
 		if(reqdata.error!==undefined) {
 			app.dialog.alert('Error: '+reqdata.error);
-			if(results!==undefined) {
+			// :TEST NEW UPLOAD: //
+			/*if(results!==undefined) {
 				AddMassResultToUpload(results);
-			}
+			}*/
 		} else {
 			if(prms.func_before!==undefined) prms.func_before();
+			// удаляем успешно загруженные результаты
+			if(reqdata.complete_results!==undefined) {
+				ClearUploadedResults(reqdata.complete_results);
+				delete reqdata.complete_results;
+			}
 			// разбираем данные
 			SetLoadedCats(f_tour_id,reqdata);
 			if(prms.func_after!==undefined) prms.func_after();
 			$$('.connection-status').removeClass('color-red').attr('title','online');
 		}
-		localStorage.removeItem('tmp_upload_results');
+		// :TEST NEW UPLOAD: //localStorage.removeItem('tmp_upload_results');
 		loadingprocess = false;
 		app.ptr.done();
 		// попытка загрузки данных через определенное время
@@ -251,10 +257,11 @@ function LoadTourCats(prms) {
 	(xhr, status) => {
 		console.log('error xhr loading');
 		console.log(status);
-		if(results!==undefined) {
+		// :TEST NEW UPLOAD: //
+		/*if(results!==undefined) {
 			AddMassResultToUpload(results);
 			localStorage.removeItem('tmp_upload_results');
-		}
+		}*/
 		if(status==401 || status==403) SetNotAuth();
 		else {
 			if(ObjectLength(tour_cats)<1 && tour_id!==undefined) {
@@ -291,12 +298,12 @@ function InitTournament() {
 
 	// загружаем пакеты для загрузки из хранилища
 	GetUploadResults();
-	var tmp_results = localStorage.getItem('tmp_upload_results');
+	/*var tmp_results = localStorage.getItem('tmp_upload_results');
 	// если остались пакеты сломавшиеся
 	if(tmp_results) {
 		AddMassResultToUpload(json_decode(tmp_results));
 		localStorage.removeItem('tmp_upload_results');
-	}
+	}*/
 
 	var tours = GetTournaments();
 	//if(ObjectLength(tours)) {
@@ -497,15 +504,37 @@ function AddMassResultToUpload(data) {
 				if(upload_results[tid][cid]===undefined) upload_results[tid][cid] = {};
 				for(var jid in data[tid][cid]) {
 					upload_results[tid][cid][jid] = data[tid][cid][jid];
-					localStorage.setItem('upload_results',json_encode(upload_results));
+					//localStorage.setItem('upload_results',json_encode(upload_results));
 				}
 			}
 		}
+		// записываем только итог
+		localStorage.setItem('upload_results',json_encode(upload_results));
+	}
+}
+// подчищаем загруженные результаты
+function ClearUploadedResults(data) {
+	if(data!==undefined) {
+		// берем актуальные результаты
+		upload_results = json_decode(localStorage.getItem('upload_results'));
+		if(upload_results!==undefined) for(var tid in data) {
+			if(upload_results[tid]!==undefined) for(var cid in data[tid]) {
+				if(upload_results[tid][cid]!==undefined) for(var jid in data[tid][cid]) {
+					if(upload_results[tid][cid][jid]!==undefined) delete upload_results[tid][cid][jid];
+				}
+				if(!ObjectLength(upload_results[tid][cid])) delete upload_results[tid][cid];
+			}
+			if(!ObjectLength(upload_results[tid])) delete upload_results[tid];
+		}
+		// записываем после изменения
+		localStorage.setItem('upload_results',json_encode(upload_results));
 	}
 }
 // добавить результат к загрузке на сервер
 function AddResultToUpload(id,cid,jid,data) {
 	if(id!==undefined && cid!==undefined && jid!==undefined && data!==undefined) {
+		// берем актуальные результаты
+		upload_results = json_decode(localStorage.getItem('upload_results'));
 		if(upload_results===undefined) upload_results = {};
 		if(upload_results[id]===undefined) upload_results[id] = {};
 		if(upload_results[id][cid]===undefined) upload_results[id][cid] = {};
