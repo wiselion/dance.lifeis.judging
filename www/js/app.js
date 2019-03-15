@@ -5,8 +5,8 @@ var $$ = Dom7;
 var app  = new Framework7({
   init: false,
   root: '#app', // App root element
-  id: 'dance.lifeis.judging', // App bundle ID
-  name: 'Lifeis.Judging', // App name
+  id: 'dance.lifeis.competition', // App bundle ID
+  name: 'Lifeis.Competition', // App name
   theme: 'auto', // Automatic theme detection
   view: {
 	  iosSwipeBack: false,
