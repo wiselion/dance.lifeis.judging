@@ -557,7 +557,7 @@ function ClearLocalData() {
 }
 // ------------- BATTERY ------------------//
 function InitBatteryStatus() {
-	navigator.getBattery().then(function(bat) {
+	if(navigator.getBattery!==undefined) navigator.getBattery().then(function(bat) {
 		SetBatteryStatus(bat);
 		bat.onlevelchange = function(){SetBatteryStatus(this);};
 	});
