@@ -715,6 +715,13 @@ function CatCompleteStatus(key) {
 		return '';
 	}
 }
+function GetSexColor(key, obj) {
+	if(CheckKeyInObject(key, obj)) {
+		return parseInt(obj[key]) > 0 ? 'bg-color-blue' : 'bg-color-pink';
+	} else {
+		return '';
+	}
+}
 // -------------- DATE & TIME ----------------- //
 function FormatUTDate(date) {
 	return FormatDate(date*1000);
@@ -893,7 +900,7 @@ isTitle	boolean		Defines whether it should be rendered as a message or as a mess
     }
 
     //navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
-    
+
 // ------------- GLOBALIZATION ---------------- //
 function GlobalPreferredLanguage() {
 	navigator.globalization.getPreferredLanguage(
@@ -982,7 +989,7 @@ function SetLSItem(val) {
 // --------- NETWORK ------------- //
 function checkConnection() {
     var networkState = navigator.connection.type;
- 
+
     var states = {};
     states[Connection.UNKNOWN]  = 'Unknown connection';
     states[Connection.ETHERNET] = 'Ethernet connection';
@@ -992,7 +999,7 @@ function checkConnection() {
     states[Connection.CELL_4G]  = 'Cell 4G connection';
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
- 
+
     app.dialog.alert('Connection type: ' + states[networkState]);
 }
 // -------- CONTACTS ----------- //

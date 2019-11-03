@@ -81,13 +81,13 @@
 			<div class="block">
 				{{#each this}}
 				<div class="row padding-bottom">
-					<div class="col-20 pair_number"><button class="col button button-fill color-gray">{{number}}</button></div>
+					<div class="col-20 pair_number"><button class="col button button-fill color-gray {{GetSexColor id ../../../sex}}">{{number}}</button></div>
 					<div class="col-70 row no-gap justify-content-left">
-						<div class="range-slider range-slider-init color-orange" data-label="true">
-							<input @change="setRangeValue" pair_id="{{id}}" type="range" min="5" max="10" step="0.1" value="5">
+						<div class="range-slider range-slider-init color-orange" ronda="{{../@key}}" pair_id="{{id}}" data-label="true">
+							<input @change="setRangeValue" ronda="{{../@key}}" pair_id="{{id}}" type="range" min="5" max="10" step="0.1" value="5">
 						</div>
 					</div>
-					<div class="col-10"><input class="complex-value" pair_id="{{id}}" type="text" readonly value="0"/></div>
+					<div class="col-10"><input class="complex-value" ronda="{{../@key}}" pair_id="{{id}}" type="text" readonly value="0"/></div>
 				</div>
 				{{/each}}
 			</div>
@@ -115,7 +115,7 @@
         first_dance_index: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
         curr_tab: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
         marks: GetArrayFromNumber(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].maxpairs),
-		  //sex: ???
+        sex: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].sex ? tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].sex : {}
       }
     },
     on: {
@@ -201,7 +201,7 @@
 				atab.find('input.complex-value[pair_id]').each(function (n, el) {
 					if(parseFloat(el.value)>0) qty++;
 				});
-				if(qty!=this.maxpairs) {
+				if(qty!=this.numpairs) {
 					counter.html(qty).show();
 					check_tour.hide();
 				} else {
@@ -213,10 +213,16 @@
       },
     },
     methods: {
+    	// при передвижении слайдера
 		setRangeValue: function(e,a) {
 			const val = e.target.value;
 			const pid = $$(e.target).attr("pair_id");
-			$$('input.complex-value[pair_id="'+pid+'"').val(val);
+			const rid = $$(e.target).attr("ronda");
+			//$$('.judging.tab input[pair_id="'+pid+'"]').val(val);
+			$$('input.complex-value[ronda="'+rid+'"][pair_id="'+pid+'"]').val(val);
+			app.range.setValue('.range-slider[pair_id="'+pid+'"]:not([ronda="'+rid+'"])', val);
+
+			console.log('slide '+pid+' to '+val);
 
 			// проверяем счетчик отмеченных
 			const atab = $$('.judging.tab-active[id]');
@@ -226,7 +232,7 @@
 			atab.find('input.complex-value[pair_id]').each(function (n, el) {
 				if(parseFloat(el.value)>0) qty++;
 			});
-			if(qty!=this.maxpairs) {
+			if(qty!=this.numpairs) {
 				counter.html(qty).show();
 				check_tour.hide();
 			} else {
@@ -415,13 +421,14 @@
 			  atab.find('input.complex-value[pair_id]').each(function (n, el) {
 				  if(parseFloat(el.value)>0) qty++;
 			  });
+			  if(qty!=this.numpairs) return;
 			  break;
 
 		  default:
 			  qty = atab.find('.button[pair_id][hitstate="yes"]').length;
+			  if(qty!=this.maxpairs) return;
 			break;
 		}
-	    if(qty!=this.maxpairs) return;
 
 	    // находим неотсуженные слева направо
 	    delete this.balls[dance];
