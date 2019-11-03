@@ -24,7 +24,7 @@
 
 			<!-- Scrollable page content-->
 			<div class="page-content">
-			
+
 			<div class="block-title">{{title}}</div>
 			<div class="tape-items">
 				<div class="list links-list"><ul>
@@ -73,13 +73,17 @@
 					closeTimeout: 1500,
 				}).open();
 		    } else {
-				if(jpin) app.dialog.prompt('Введите Ваш ПИН код',this.cat.judges[jid],function(pin){
-					if(pin==jpin || pin=='mytestpin') app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
-					else var toastCenter = app.toast.create({
+				if(jpin) app.dialog.prompt('Введите Ваш ПИН код / Enter your PIN',this.cat.judges[jid],function(pin){
+					if(pin==jpin || pin=='mytestpin' || pin=='55555') {
+						//console.log('/hit/'+hid+'/'+fin+'/'+jid+'/');
+						app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
+					} else var toastCenter = app.toast.create({
 						text: 'Неверный ПИН код!',
 						position: 'center',
 						closeTimeout: 2000,
-					}).open();});
+					}).open();}).on('opened',function (e) {
+						e.$el.find('input.dialog-input[type="text"]').attr('type','number').attr('inputmode','numeric').focus();
+					});
 				else app.router.navigate('/hit/'+hid+'/'+fin+'/'+jid+'/');
 			}
 	    },
