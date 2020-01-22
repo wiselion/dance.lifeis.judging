@@ -31,6 +31,7 @@
     <platform name="android">
 		<preference name="phonegap-version" value="cli-7.1.0" />
         <preference name="android-minSdkVersion" value="21" />
+        <preference name="android-targetSdkVersion" value="28" />
         <resource-file src="google-services.json" target="app/google-services.json" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
