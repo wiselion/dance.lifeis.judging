@@ -10,6 +10,7 @@ var app_prms = {
 	time_online: 30000,
 };
 var authorize = true;
+var pinCode = 0;
 var userdata = {};
 // device battery status
 var battery = {};
