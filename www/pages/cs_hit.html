@@ -18,8 +18,13 @@
 					{{/js_if}}
 					<span id="maxpairs" class="button button-fill color-red margin-right" style="background-color:#f00;">0</span>
 					<a id="check_tour" @click="saveDance" class="link icon-only" style="display:none;">
+						{{#if complete}}
+						<i class="icon f7-icons ios-only">lock_circle_fill</i>
+						<i class="icon material-icons md-only">lock</i>
+						{{else}}
 						<i class="icon f7-icons ios-only">check</i>
 						<i class="icon material-icons md-only">check</i>
+						{{/if}}
 					</a>
 				</div>
             </div>
@@ -100,32 +105,34 @@
 <script>
   return {
     data() {
-      return {
-        // empty initial user data
-        title: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].title+', '+tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].final_type, //+', '+tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].desc,
-        judge_name: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].judges[this.$route.params.judgeId],
-        judge_id: this.$route.params.judgeId,
-        hit_id: this.$route.params.hitId,
-        final: this.$route.params.final,
-        cat: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final],
-        maxpairs: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].maxpairs,
-        numpairs: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].num_pairs,
-        balls: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls,
-        type: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].type,
-        first_dance_index: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
-        curr_tab: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
-        marks: GetArrayFromNumber(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].maxpairs),
-        sex: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].sex ? tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].sex : {}
-      }
+		const res = tour_results!==undefined && tour_results[this.$route.params.hitId+'-'+this.$route.params.final]!==undefined ? tour_results[this.$route.params.hitId+'-'+this.$route.params.final] : {};
+		return {
+			// empty initial user data
+			complete: res[this.$route.params.judgeId] !== undefined,
+			title: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].title+', '+tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].final_type, //+', '+tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].desc,
+			judge_name: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].judges[this.$route.params.judgeId],
+			judge_id: this.$route.params.judgeId,
+			hit_id: this.$route.params.hitId,
+			final: this.$route.params.final,
+			cat: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final],
+			maxpairs: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].maxpairs,
+			numpairs: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].num_pairs,
+			balls: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls,
+			type: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].type,
+			first_dance_index: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
+			curr_tab: ObjectFirstKey(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].balls),
+			marks: GetArrayFromNumber(tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].maxpairs),
+			sex: tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].sex ? tour_cats[this.$route.params.hitId+'-'+this.$route.params.final].sex : {}
+		}
     },
     on: {
       pageInit() {
         var self = this;
         // при переключении на определенную вкладку
         $$('.judging.tab').on('tab:show',function(e){
-		    var atab = $$('.judging.tab-active[id]');
-		    var counter = $$('#maxpairs');
-		    var check_tour = $$('#check_tour');
+		    const atab = $$('.judging.tab-active[id]');
+		    const counter = $$('#maxpairs');
+		    const check_tour = $$('#check_tour');
 		    // проверяем счетчик отмеченных
 		    var qty = atab.find('button[pair_id][hitstate="yes"]').length;
 		    if(qty!=self.maxpairs) {
@@ -139,31 +146,38 @@
 
         // если есть данные судейства
         var catind = this.$route.params.hitId+'-'+this.$route.params.final;
-        if(results_log[catind]!==undefined) {
-        	if(results_log[catind][this.$route.params.judgeId]!==undefined) {
-	        	// на всякий случай создаем копию
-	        	var res = results_log[catind][this.$route.params.judgeId];
-	        	// назначаем кнопкам статусы
-	        	for(var d in res) {
-		        	for(var pid in res[d]) {
-						switch(this.type) {
-							case 'complexpoints':
-								// :TODO: пока только одна оценка
-								$$('.judging.tab input[pair_id="'+pid+'"]').val(res[d][pid]);
-							break;
 
-							default:
-								if(isNumber(res[d][pid])) {
-									//$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][mark_id="'+res[d][pid]+'"][hitstate]').trigger('click');
-									$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][mark_id="'+res[d][pid]+'"][hitstate]').attr('hitstate','yes');
-								} else {
-									$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][hitstate]').attr('hitstate',res[d][pid]);
-								}
-							break;
-						}
-		        	}
-	        	}
-        	}
+        var res;
+		// ищем результаты
+		if(tour_results[catind]!==undefined)
+			if(tour_results[catind][this.$route.params.judgeId]!==undefined)
+				res = tour_results[catind][this.$route.params.judgeId];
+		// ищем бэкап
+        if(res===undefined && results_log[catind]!==undefined)
+        	if(results_log[catind][this.$route.params.judgeId]!==undefined)
+        		res = results_log[catind][this.$route.params.judgeId];
+		// если нашли результаты
+		if(res!==undefined) {
+			// назначаем кнопкам статусы
+			for(var d in res) {
+				for(var pid in res[d]) {
+					switch(this.type) {
+						case 'complexpoints':
+							// :TODO: пока только одна оценка
+							$$('.judging.tab input[pair_id="'+pid+'"]').val(res[d][pid]);
+						break;
+
+						default:
+							if(isNumber(res[d][pid])) {
+								//$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][mark_id="'+res[d][pid]+'"][hitstate]').trigger('click');
+								$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][mark_id="'+res[d][pid]+'"][hitstate]').attr('hitstate','yes');
+							} else {
+								$$('.judging.tab .button[ball_id="'+d+'"][pair_id="'+pid+'"][hitstate]').attr('hitstate',res[d][pid]);
+							}
+						break;
+					}
+				}
+			}
         }
 
         // инициализация для разного типа
@@ -413,14 +427,21 @@
 	    this.logState('maxqty');
 	  },
       saveDance: function () {
-	    var self = this;
-	    var cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
+	    const self = this;
+	    if(this.complete) {
+			const toastCenter = app.toast.create({
+				text: 'По данному судье результаты уже зафиксированы! Вы не можете отправить их снова!',
+				position: 'center',
+				closeTimeout: 1500,
+			}).open();
+	    	return;
+		}
+	    const cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
 
-	    var atab = $$('.judging.tab-active[id]');
-	    var atab_id = atab.attr("id");
-	    var tmp = atab_id.split('-');
-	    // на какой вкладке находимся
-	    var dance = tmp[1];
+	    const atab = $$('.judging.tab-active[id]');
+	    const atab_id = atab.attr("id");
+		// на какой вкладке находимся
+	    const dance = atab_id.split('-')[1];
 
 	    // проверяем счетчик отмеченных
 		var qty = 0;

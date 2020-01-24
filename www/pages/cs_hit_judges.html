@@ -40,10 +40,10 @@
 <script>
   return {
     data() {
-		var cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
-		var res = tour_results!==undefined && tour_results[this.$route.params.hitId+'-'+this.$route.params.final]!==undefined ? tour_results[this.$route.params.hitId+'-'+this.$route.params.final] : {};
-		var res_status = [];
-		for(var i in cat.judges) res_status[i] = res[i]!==undefined ? true : false;
+		const cat = tour_cats[this.$route.params.hitId+'-'+this.$route.params.final];
+		const res = tour_results!==undefined && tour_results[this.$route.params.hitId+'-'+this.$route.params.final]!==undefined ? tour_results[this.$route.params.hitId+'-'+this.$route.params.final] : {};
+		let res_status = [];
+		for(let i in cat.judges) res_status[i] = res[i]!==undefined ? true : false;
 		return {
 			title: cat.title+'<br/>'+cat.final_type+'<br/>'+cat.desc,
 			hit_id: this.$route.params.hitId,
@@ -64,10 +64,10 @@
     methods: {
 	    // WAS href="/hit/{{../hit_id}}/{{../final}}/{{@key}}/"
 	    checkPin(hid,fin,jid) {
-		    var jpin = '';
+		    let jpin = '';
 		    if(this.cat.judges_pins!==undefined) if(this.cat.judges_pins[jid]!==undefined) jpin = this.cat.judges_pins[jid];
-		    if(this.res[jid]!==undefined) {
-				var toastCenter = app.toast.create({
+		    if(0 /*this.res[jid]!==undefined*/) {
+				const toastCenter = app.toast.create({
 					text: 'По данному судье есть результаты!',
 					position: 'center',
 					closeTimeout: 1500,
