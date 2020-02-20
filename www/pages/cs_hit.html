@@ -39,6 +39,7 @@
 		</div>
 
 		<div class="tabs">
+			<!-- полуфиналы по крестам -->
 			{{#js_if "../type == 'maxqty'"}}
 			{{#each cat.balls}}
 				<div id="tab-{{@key}}" class="judging page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
@@ -56,6 +57,7 @@
 				</div>
 			{{/each}}
 			{{/js_if}}
+			<!-- финалы по скейтингу -->
 			{{#js_if "../type == 'skating'"}}
 			{{#each cat.balls}}
 				<div id="tab-{{@key}}" class="judging page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
@@ -77,6 +79,7 @@
 				</div>
 			{{/each}}
 			{{/js_if}}
+			<!-- по баллам -->
 			{{#js_if "../type == 'complexpoints'"}}
 			{{#each cat.balls}}
 			<div id="tab-{{@key}}" class="judging page-content tab{{#js_if "@key === ../first_dance_index"}} tab-active{{/js_if}}">
@@ -89,7 +92,7 @@
 					<div class="col-20 pair_number"><button class="col button button-fill color-gray {{GetSexColor id ../../../sex}}">{{number}}</button></div>
 					<div class="col-70 row no-gap justify-content-left">
 						<div class="range-slider range-slider-init color-orange" ronda="{{../@key}}" pair_id="{{id}}" data-label="true">
-							<input @change="setRangeValue" ronda="{{../@key}}" pair_id="{{id}}" type="range" min="5" max="10" step="0.1" value="5">
+							<input @change="setRangeValue" ronda="{{../@key}}" pair_id="{{id}}" type="range" min="{{../../../cat.settings.min}}" max="{{../../../cat.settings.max}}" step="{{../../../cat.settings.step}}" value="{{../../../cat.settings.min}}">
 						</div>
 					</div>
 					<div class="col-10"><input class="complex-value" ronda="{{../@key}}" pair_id="{{id}}" type="text" readonly value="0"/></div>

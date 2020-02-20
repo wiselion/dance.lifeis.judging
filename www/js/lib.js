@@ -227,7 +227,14 @@ function LoadTourCats(prms) {
 	// :TEST NEW UPLOAD: //upload_results = {};
 
 //	console.log({last:tour_cats_last,tour_id:f_tour_id});
-	app.request.post(app_prms.url.data, {action:'cats',ldate:tour_cats_last,tour_id:f_tour_id,tab_name:tabletName,tab_state:battery,token:token,results:GetUploadResults()}, (reqdata) => {
+	app.request.post(app_prms.url.data, {
+			action:'cats',
+			ldate:tour_cats_last,
+			tour_id:f_tour_id,
+			tab_name:tabletName,
+			tab_state:battery,
+			token:token,results:GetUploadResults()
+		}, (reqdata) => {
 		if(reqdata.error!==undefined) {
 			app.dialog.alert('Error: '+reqdata.error);
 			// :TEST NEW UPLOAD: //
