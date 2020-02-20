@@ -118,6 +118,33 @@ function DumpResultsData() {
 		app.dialog.alert('No results to upload!');
 	}
 }
+// отправка всех результатов
+function SendResultsData() {
+	var data = localStorage.getItem('results_'+tour_id);
+	if(data!==undefined) {
+		var token = getToken();
+		if(!token) SetNotAuth();
+		app.preloader.show();
+		app.request.post(app_prms.url.data, {
+				dump:data,
+				action:'results',
+				token:token,
+				tour_id:tour_id,
+				tab_name:tabletName
+			}, (req) => {
+		 		app.preloader.hide();
+		 		if(req.status) {
+		 			app.dialog.alert(req.message ? req.message : 'Results uploaded successfully!');
+		 		} else app.dialog.alert(req.error);
+		 	},
+		 	(xhr, status) => {
+		 		app.preloader.hide();
+		 		app.dialog.alert(lang.login.disconnect);
+		 	},'json');
+	} else {
+		app.dialog.alert('No results to upload!');
+	}
+}
 function SendAuthRequest(url,data) {
 	app.preloader.show();
 	app.request.post(url, data, (req) => {
@@ -231,9 +258,11 @@ function LoadTourCats(prms) {
 			action:'cats',
 			ldate:tour_cats_last,
 			tour_id:f_tour_id,
+			tab_judge: pinCode,
 			tab_name:tabletName,
 			tab_state:battery,
-			token:token,results:GetUploadResults()
+			token:token,
+			results:GetUploadResults()
 		}, (reqdata) => {
 		if(reqdata.error!==undefined) {
 			app.dialog.alert('Error: '+reqdata.error);
@@ -246,6 +275,7 @@ function LoadTourCats(prms) {
 			// удаляем успешно загруженные результаты
 			if(reqdata.complete_results!==undefined) {
 				ClearUploadedResults(reqdata.complete_results);
+				// ???? не понятно зачем это
 				delete reqdata.complete_results;
 			}
 			// разбираем данные
@@ -498,9 +528,9 @@ function SetResults(id,cid,jid,data) {
 }
 // получить результат к загрузке на сервер из хранилища
 function GetUploadResults() {
-	if(upload_results===undefined) {
+	// if(upload_results===undefined) {
 		upload_results = json_decode(localStorage.getItem('upload_results'));
-	}
+	// }
 	return upload_results;
 }
 // добавить массовый результат к загрузке на сервер
